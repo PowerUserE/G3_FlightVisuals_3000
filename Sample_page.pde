@@ -57,7 +57,7 @@ void mouseClicked() {
     screen = "home";
     startScreen();
   } else if (mouseX >= 107 && mouseX <= 107 + 20 && mouseY >= 73 && mouseY <= 73 + 20) {
-    barChart();
+    currentScreen.draw();
   } else if (mouseX >= 95 && mouseX <= 95 + 20 && mouseY >= 132 && mouseY <= 132 + 20) {
     state();
   } else if (mouseX >= 323 && mouseX <= 323 + 20 && mouseY >= 102 && mouseY <= 102 + 20) {
