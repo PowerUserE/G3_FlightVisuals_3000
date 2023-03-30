@@ -32,9 +32,9 @@ void setup() {
 
 
   screen1 = new Screen(color(150), backgroundImage, mapImage);
-  screen2 = new Screen(color(150));
-  screen3 = new Screen(color(150), histogram, "AVERAGE DISTANCE TRAVELLED BY EACH CARRIER");
-  screen4 = new Screen(color(150));
+  screen2 = new Screen(color(150), backgroundImage);
+  screen3 = new Screen(color(150), backgroundImage, histogram, "AVERAGE DISTANCE TRAVELLED BY EACH CARRIER");
+  screen4 = new Screen(color(150), backgroundImage);
   screen1.add(widget1);
   screen2.add(widget2);
   screen2.add(widget4);

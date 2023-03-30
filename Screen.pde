@@ -9,16 +9,18 @@ class Screen {
   String header;
 
   
-  Screen(color screenColor)
+  Screen(color screenColor, PImage screenBackg)
   {
     screenWidgets = new ArrayList<Widget>();
     this.screenColor = screenColor;
+    this.screenBackg = screenBackg;
   }
   
-  Screen(color screenColor, boolean histogram, String header)
+  Screen(color screenColor, PImage screenBackg, boolean histogram, String header)
   {
     screenWidgets = new ArrayList<Widget>();
     this.screenColor = screenColor;
+    this.screenBackg = screenBackg;
     this.histogram = histogram;
     this.header = header;
     hist = new Histogram(120, 700, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2);
@@ -38,11 +40,10 @@ class Screen {
   }
   
   void draw(){
-
     background(screenColor);
+    image(screenBackg, 0, 0, width, height);
     if(home)
     {
-      image(screenBackg, 0, 0, width, height);
       image(usMap, 25, 40, width/1.1, height/1.1);
       //startScreen();
     }
