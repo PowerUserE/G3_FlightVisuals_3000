@@ -4,7 +4,7 @@ import processing.core.PVector;
 import java.util.List;
 import java.util.stream.Collectors;
 
-String flightFilePath = "flights2k.csv";
+String flightFilePath = "flights10k.csv";
 String[] flightData;
 
 
@@ -25,3 +25,7 @@ ArrayList widgetList;
 boolean histogram = true;
 
 PFont myFont, myFont2;
+
+String queryResult = "";
+
+PFont widgetFont;
