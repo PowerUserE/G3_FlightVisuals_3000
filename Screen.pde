@@ -1,11 +1,13 @@
 class Screen { 
 
+
   ArrayList<Widget> screenWidgets;
   Histogram hist;
   color screenColor;
   PImage screenBackg, usMap;
   boolean home, histogram = false;
   String header;
+
   
   Screen(color screenColor)
   {
@@ -36,6 +38,7 @@ class Screen {
   }
   
   void draw(){
+
     background(screenColor);
     if(home)
     {
