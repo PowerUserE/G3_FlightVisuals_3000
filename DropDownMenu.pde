@@ -2,8 +2,6 @@ DropdownList userQuery;
 void dropDown() {
    PFont  textBoxFont;
   textBoxFont = loadFont("Arial-BoldMT-15.vlw");
-  //PFont  textBoxFont;
-  //textBoxFont = loadFont("Arial-BoldMT-15.vlw");
   cp5 = new ControlP5(this);
   // Create the dropdown list
   userQuery = cp5.addDropdownList("userQuery")
@@ -31,7 +29,7 @@ userQuery.setFont(textBoxFont);
   );
 }
 
-void handleDropdownEvent(float value) {
+void handleDropdownEvent(float value) {  
   int optionChosen = (int) value;
 
   switch (optionChosen) {
