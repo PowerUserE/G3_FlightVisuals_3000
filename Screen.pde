@@ -44,7 +44,7 @@ class Screen {
     image(screenBackg, 0, 0, width, height);
     if(home)
     {
-      image(usMap, 25, 40, width/1.1, height/1.1);
+      image(usMap, 0, 185, width, height);                            
       //startScreen();
     }
     for(int i=0; i<screenWidgets.size(); i++)

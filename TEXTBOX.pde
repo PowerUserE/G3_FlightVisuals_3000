@@ -6,7 +6,7 @@ void textBox() {
   cp5 = new ControlP5(this);
   //cp5.addTextfield("carrier")
   Textfield textbox = cp5.addTextfield("Type in your Query") // have to put the parameters later on e.g what the user is allowed to type
-    .setPosition((width-350-15), 30)
+    .setPosition((width-1120), 115)
     .setSize(350, 45)
     .setAutoClear(true);
   textbox.setColorBackground(color(0)); // Set background color to white

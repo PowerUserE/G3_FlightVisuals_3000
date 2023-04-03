@@ -19,11 +19,11 @@ void setup() {
   mapImage = loadImage("Map-of-United-States-of-America-with-States-scaled-PhotoRoom.png-PhotoRoom.png");
   CA_MAP = loadImage("CA_MAP.png");
   parseFlightData();
-  startScreen();
+
   dropDown();
   textBox();
   ////widget
-  widget1 = new Widget(100, 620, 110, 40, "QUERIES", color(0, 255, 0), widgetFont, EVENT_BUTTON1);
+  widget1 = new Widget(width/2-80, 20, 250, 140, "QUERIES", color(0, 120, 200), widgetFont, EVENT_BUTTON1);
   widget2 = new Widget(width-75, 20, 70, 40, "HOME", color(0, 255, 0), widgetFont, EVENT_BUTTON2);
   widget3 = new Widget(width-75, 65, 65, 40, "BACK", color(0, 255, 0), widgetFont, EVENT_BUTTON3);
   widget4 = new Widget(250, 300, 510, 40, "AVERAGE DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON4);

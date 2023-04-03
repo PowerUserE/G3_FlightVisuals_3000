@@ -5,8 +5,8 @@ void dropDown() {
   cp5 = new ControlP5(this);
   // Create the dropdown list
   userQuery = cp5.addDropdownList("userQuery")
-    .setPosition(20, height-300)
-    .setSize(250, 150)
+    .setPosition(80, height-780)
+    .setSize(400, 150)
     .setBarHeight(50);
     //.setBarVisible(true);
 
