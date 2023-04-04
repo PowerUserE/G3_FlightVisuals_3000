@@ -27,7 +27,7 @@ void setup() {
   widget2 = new Widget(width-75, 20, 70, 40, "HOME", color(0, 255, 0), widgetFont, EVENT_BUTTON2);
   widget3 = new Widget(width-75, 65, 65, 40, "BACK", color(0, 255, 0), widgetFont, EVENT_BUTTON3);
   widget4 = new Widget(250, 300, 510, 40, "AVERAGE DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON4);
-  widget5 = new Widget(250, 400, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON5);
+  widget5 = new Widget(250, 400, 510, 40, "NUMBER OF CANCELLED FLIGHTS PER CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON5);
   widget6 = new Widget(250, 500, 510, 40, "CARRIERS LATE VS CARRIERS ON-TIME", color(0, 255, 0), widgetFont, EVENT_BUTTON6);
 
 
