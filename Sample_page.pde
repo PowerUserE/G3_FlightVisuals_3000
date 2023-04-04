@@ -4,8 +4,8 @@ int hotspotWidth = 50;
 int hotspotHeight = 50;
 void startScreen() {
 
-  image(backgroundImage, 0, 0, width, height);
-  image(mapImage, 25, 40, width/1.1, height/1.1);
+  //image(backgroundImage, 0, 0, width, height);
+ //image(mapImage, 0, 0, width, height/*, width/1.5, height/1.5*/); // original values (mapImage, 25, 40, width/1.1, height/1.1); 
   fill(180);
   //rect(hotspotX, hotspotY, hotspotWidth, hotspotHeight);
   rect(107, 73, 20, 20);
