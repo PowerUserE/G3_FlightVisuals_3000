@@ -8,10 +8,11 @@ public class getData {
     queryRequested = true;
   }
   void displayMessage() { // void it dosent return any value, just modifies the text on screen
-    fill(255);
+    fill(0);
     textAlign(LEFT, TOP);
-    textSize(25);
-    text(queryResult, 20, 20);
+    textSize(20);
+   // text(queryResult, 20, 20);
+   text(queryResult,(width/2)+275, 85);
     // sample text from previous code, look back to debug if issues encountered
   }
   public int carrierDistance(String carrier) {

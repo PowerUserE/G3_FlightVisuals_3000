@@ -29,3 +29,11 @@ PFont myFont, myFont2;
 String queryResult = "";
 
 PFont widgetFont;
+
+boolean otherStatsRequested = false;
+
+boolean showTextBox = true;
+
+Textfield textbox;
+
+String GroupName = "G3 Flight_ or Decide on a Group Name";
