@@ -23,9 +23,26 @@ void parseFlightData() {
     destState.add(flight[9]);
     destWAC.add(Integer.parseInt(flight[10]));
     crsDepTime.add(flight[11]);
-    depTime.add(flight[12]);
-    crsArrTime.add(flight[13]);
-    arrTime.add(flight[14]);
+        if(flight[12] == ""){
+      depTime.add(0);
+    }
+    else{
+    depTime.add(Integer.parseInt(flight[12]));
+    }
+    
+        if(flight[13] == ""){
+      crsArrTime.add(0);
+    }
+    else{
+    crsArrTime.add(Integer.parseInt(flight[13]));
+    }
+    
+      if(flight[14] == ""){
+      arrTime.add(0);
+    }
+    else{
+    arrTime.add(Integer.parseInt(flight[14]));
+    }
     cancelled.add(Double.parseDouble(flight[15]));
     diverted.add(flight[16]);
     //distance.add(flight[17]);
@@ -55,9 +72,9 @@ ArrayList<String> destCity = new ArrayList<String>();
 ArrayList<String> destState = new ArrayList<String>();
 ArrayList<Integer> destWAC = new ArrayList<Integer>();
 ArrayList<String> crsDepTime = new ArrayList<String>();
-ArrayList<String> depTime = new ArrayList<String>();
-ArrayList<String> crsArrTime = new ArrayList<String>();
-ArrayList<String> arrTime = new ArrayList<String>();
+ArrayList<Integer> depTime = new ArrayList<Integer>();
+ArrayList<Integer> crsArrTime = new ArrayList<Integer>();
+ArrayList<Integer> arrTime = new ArrayList<Integer>();
 ArrayList<Double> cancelled = new ArrayList<Double>();
 ArrayList<String> diverted = new ArrayList<String>();
 ArrayList<Float> distance = new ArrayList<Float>();
