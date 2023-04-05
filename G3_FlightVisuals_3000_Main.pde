@@ -30,7 +30,7 @@ void setup() {
   boolean flag = true;
 
   parseFlightData();
-  startScreen();
+
   dropDown();
   textBox();
   ////widget
@@ -57,10 +57,13 @@ void setup() {
   screen4.add(widget3);
   currentScreen = screen1;
   
+
 }
 
 void draw() {
   background(0);
+  
+  
 
 
 
@@ -68,7 +71,7 @@ void draw() {
   case "home":
     //case "textBox":
   case "querypage":
-    startScreen();
+    stateData();
     // getTextInput();
     currentScreen.draw();
     break;
@@ -95,6 +98,8 @@ void draw() {
    textbox.setVisible(false);
    // println("No Text");
   } 
+  
+  stateData();
 }
 
 
@@ -192,3 +197,13 @@ void mousePressed() {
 // show a sample query for the user
 // implement navigation e.g cusor to scroll through the results
 // run queries in respnse to user input and not draw
+
+
+// What to do for 5th April
+// redo the States but when clicked/hover, they will not lead to a new page, they will only specify a query on the stats summary page
+// Decide on a group name
+// Q button leads to a page with different query options(We have 3 for now)
+
+// We need to work on creating the summary stats with the states
+// We need to work on creating the actual query(chosen Q button) stats
+// Then the rest is Design

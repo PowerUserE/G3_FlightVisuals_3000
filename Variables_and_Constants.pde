@@ -37,3 +37,5 @@ boolean showTextBox = true;
 Textfield textbox;
 
 String GroupName = "G3 Flight_ or Decide on a Group Name";
+
+String currState = "";
