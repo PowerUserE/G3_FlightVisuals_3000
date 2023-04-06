@@ -23,6 +23,9 @@ final int EVENT_NULL = 0;
 ArrayList widgetList;
 
 boolean histogram = true;
+boolean pieChart = true;
+
+String chosenState = "TX";
 
 PFont myFont, myFont2;
 
@@ -39,3 +42,4 @@ Textfield textbox;
 String GroupName = "G3 Flight_ or Decide on a Group Name";
 
 String currState = "";
+boolean drawHist = false;
