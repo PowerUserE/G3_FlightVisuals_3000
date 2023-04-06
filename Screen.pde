@@ -42,6 +42,8 @@ class Screen {
     if (home)
     {
 
+      
+      rectMode(CORNER);
       stroke(128, 0, 128); // Set the color of the line to purple
       strokeWeight(3); // Set the thickness of the line to 4 pixels
       // line(width/2 + 100, 0, width/2 + 100, height); // Draw the line shifted 100 pixels to the right
@@ -61,11 +63,11 @@ class Screen {
       rect(width/2 + 280, 110, 400, 30); // Header
       rect(width/2 + 280, 145, 400, 180);
       image(histogramSample, width/2 + 280, 115+30, 400, 180);
-      
+
       rect(width/2 + 280, 340, 400, 30); // Header
       rect(width/2 + 280, 375, 400, 180);
       image(pieChartSample, width/2 + 280, 375, 400, 180);
-      
+
       rect(width/2 + 280, height*3/4+38 + 15, 400, 30); // header
       rect(width/2 + 280, height*5/6+30, 400, 70); // Daire's space bar program
       //image(lineGraphSample, width/2 + 280, 115, 180, 180);
