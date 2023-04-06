@@ -56,3 +56,38 @@ public class getData {
   
  
 }
+int[] cancelledFlights() {
+  int cancelledFlightsCount = 0;
+  int earlyFlightsCount = 0;
+  int onTimeFlightsCount = 0;
+  int delayedFlightsCount = 0;
+  for (int i = 0; i < flightDate.size(); i++)
+  {
+    int cancelledVar = int(cancelled.get(i));
+    if (cancelledVar == 1)
+    {
+      cancelledFlightsCount++;
+    } else
+    {
+      int predictArrTime = int(crsArrTime.get(i));
+      int actArrTime = int(arrTime.get(i));
+      int subtraction = predictArrTime - actArrTime;
+      if (subtraction > 0)
+      {
+        earlyFlightsCount++;
+      } else if (subtraction == 0)
+      {
+        onTimeFlightsCount++;
+      } else if (subtraction < 0)
+      {
+        delayedFlightsCount++;
+      }
+    }
+  }
+  int[] timeArray = {cancelledFlightsCount, earlyFlightsCount, onTimeFlightsCount, delayedFlightsCount};
+  //println(cancelledFlightsCount);
+  //println(earlyFlightsCount);
+  //println(onTimeFlightsCount);
+  //println(delayedFlightsCount);
+  return timeArray;
+}

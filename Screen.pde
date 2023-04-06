@@ -2,9 +2,11 @@ class Screen {
 
   ArrayList<Widget> screenWidgets;
   Histogram hist;
+  StateHistogram histo;
+  PieChart pie, pieHome;
   color screenColor;
   PImage screenBackg, usMap;
-  boolean home, histogram = false;
+  boolean home, histogram, pieChart = false;
   String header;
 
 
@@ -20,7 +22,15 @@ class Screen {
     this.screenColor = screenColor;
     this.histogram = histogram;
     this.header = header;
-    hist = new Histogram(120, 700, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2);
+    hist = new Histogram(120, 600, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2);
+  }
+  
+  Screen(color screenColor, boolean pieChart)
+  {
+    screenWidgets = new ArrayList<Widget>();
+    this.screenColor = screenColor;
+    this.pieChart = pieChart;
+    pie = new PieChart();
   }
 
   Screen(color screenColor, PImage screenBackg, PImage usMap)
@@ -30,6 +40,9 @@ class Screen {
     screenWidgets = new ArrayList<Widget>();
     this.screenBackg = screenBackg;
     this.usMap = usMap;
+    //histo = new StateHistogram(width/2 + 320, 305, 160, width/2 +280+390, "MKT_CARRIER", "DISTANCE (KM)", myFont2);
+    pieHome = new PieChart();
+    //histo = new StateHistogram(width/2 + 280, 325, 145, width/2 +280+400, "MKT_CARRIER", "DISTANCE (KM)", myFont2);
   }
 
   void add(Widget w) {
@@ -62,6 +75,12 @@ class Screen {
 
       rect(width/2 + 280, 110, 400, 30); // Header
       rect(width/2 + 280, 145, 400, 180);
+      //image(histogramSample, width/2 + 280, 115+30, 400, 180);
+      
+      rect(width/2 + 280, 340, 400, 30); // Header
+      rect(width/2 + 280, 375, 400, 180);
+      //image(pieChartSample, width/2 + 280, 375, 400, 180);
+      
       image(histogramSample, width/2 + 280, 115+30, 400, 180);
 
       rect(width/2 + 280, 340, 400, 30); // Header
@@ -79,6 +98,12 @@ class Screen {
       textSize(30);
       text(GroupName, width/2-120, 55);
       //image(logo, width/2-150, 30, logo.height/5, logo.width/5);
+      //histo.draw();
+      if(drawHist == true)
+      {
+        histog.draw();
+      }
+      pieHome.draw();
     }
     for (int i=0; i<screenWidgets.size(); i++)
     {
@@ -90,6 +115,10 @@ class Screen {
       textAlign(LEFT, BOTTOM); // temp
       text(header, 350, 40);
       hist.draw();
+    }
+    if(pieChart)
+    {
+      pie.draw();
     }
   }
 
