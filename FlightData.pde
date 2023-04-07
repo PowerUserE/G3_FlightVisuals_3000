@@ -19,8 +19,7 @@ public class getData {
   public int carrierDistance(String carrier) {
     int totalDistance = 0;
     for (int i = 0; i<mktCarrier.size(); i++) {
-      if (mktCarrier.get(i).equals(carrier)&& date.isWithinDateRange(flightDate.get(i).substring(0, 10), StartDateinput,EndDateinput)) {
-        println("ckeckkkckks");
+      if (mktCarrier.get(i).equals(carrier)&& date.isWithinDateRange(flightDate.get(i), StartDateinput,EndDateinput)) {
         totalDistance += distance.get(i);
       }
     }
@@ -33,7 +32,7 @@ public class getData {
   public int destCityCancelledFlights(String destCityCancelQuery) {
     int count = 0;
     for (int i = 0; i < destCity.size(); i++) {
-      if ((destCity.get(i).equals(destCityCancelQuery)) && (cancelled.get(i) != 0.0) && date.isWithinDateRange(flightDate.get(i).substring(0, 10), startDate, endDate)) {
+      if ((destCity.get(i).equals(destCityCancelQuery)) && (cancelled.get(i) != 0.0) && date.isWithinDateRange(flightDate.get(i), startDate, endDate)) {
         count++;
       }
     }

@@ -26,7 +26,7 @@ class Date {
 
 
    boolean isWithinDateRange(String queryDate, String start, String end) {
-//println("queryDate");
+
     String[] dateParts = split(queryDate, '/');
     String[] startParts = split(start, '/');
     String[] endParts = split(end, '/');
@@ -35,9 +35,11 @@ class Date {
     int dateDay = int(dateParts[1]);
     int dateYear = int(dateParts[2]);
 
+
     int startMonth = int(startParts[0]);
     int startDay = int(startParts[1]);
     int startYear = int(startParts[2]);
+
 
     int endMonth = int(endParts[0]);
     int endDay = int(endParts[1]);
@@ -91,7 +93,5 @@ public void handleButtonEvents(GButton button, GEvent event) {
 
     Date date = new Date();
    date.displayCurrentDateRange();
-    println("VLOOVP");
   }
-  println("VLPBDFD");
 }

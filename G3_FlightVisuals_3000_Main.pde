@@ -2,12 +2,16 @@ import controlP5.*;
 
 ControlP5 cp5;
 String carrier;
-PImage backgroundImage, mapImage, CA_MAP, lineGraphSample, pieChartSample, histogramSample, logo;
+PImage backgroundImage, mapImage, CA_MAP, lineGraphSample, pieChartSample, histogramSample, logo, loadingScreen;
 String screen = "home";
 String input = "";
 String inputType = "carrier"; // by default, we shuld find the carrier information
 
 void setup() {
+
+
+
+
 
 
   HeaderFont = loadFont("PTSerif-Bold-42.vlw"); // assign the loaded font to the variable
@@ -20,24 +24,27 @@ void setup() {
 
   //size(1420, 800);
   size(1420, 700);
+
   //backgroundImage = loadImage("backgroundFinal.jpeg");
   backgroundImage = loadImage("treeWhiteTest.jpg");
   lineGraphSample = loadImage("lineGraphSample.png");
   pieChartSample = loadImage("pieChartSample.png");
   histogramSample = loadImage("histogramSample.png");
   logo = loadImage("G3Logo.png");
+  loadingScreen = loadImage("loadingScreen.jpeg");
+  //image(loadingScreen, 0, 0, width, height);
+  parseFlightData();
 
   //mapImage = loadImage("Map-of-United-States-of-America-with-States-scaled-PhotoRoom.png-PhotoRoom.png");
   mapImage = loadImage("USAMAPBACKGROUND.jpeg");
   CA_MAP = loadImage("CA_MAP.png");
-  boolean flag = true;
 
-  parseFlightData();
+
 
   dropDown();
   textBox();
   ////widget
-  
+
 
   widget1 = new Widget(width-100, 65, 70, 32, "Query", color(0, 255, 0), widgetFont, EVENT_BUTTON1);
   widget2 = new Widget(width-75, 20, 70, 40, "HOME", color(0, 255, 0), widgetFont, EVENT_BUTTON2);
@@ -46,7 +53,7 @@ void setup() {
   widget5 = new Widget(250, 400, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON5);
   widget6 = new Widget(250, 500, 510, 40, "CARRIERS LATE VS CARRIERS ON-TIME", color(0, 255, 0), widgetFont, EVENT_BUTTON6);
   widget7 = new Widget(width-100, 65, 70, 32, "Exit", color(0, 255, 0), widgetFont, EVENT_BUTTON6); // remeber to run widget
-  
+
 
 
   screen1 = new Screen(color(150), backgroundImage, mapImage);
@@ -65,17 +72,17 @@ void setup() {
   currentScreen = screen1;
 
 
-  
- 
+
+
   Date date = new Date();
   //date.dateRange("01/04/2022", "01/06/2022", "01/04/2022");
-  
-    startDateField = new GTextField(this, width/2 + 290, height*5/6+35, 150, 30);
-    endDateField = new GTextField(this, width/2 + 450, height*5/6+35, 150, 30);
 
-    submitButton = new GButton(this, width/2 + 620, height*5/6+35, 50, 30);
-  
-    submitButton.setText("Submit");
+  startDateField = new GTextField(this, width/2 + 290, height*5/6+35, 150, 30);
+  endDateField = new GTextField(this, width/2 + 450, height*5/6+35, 150, 30);
+
+  submitButton = new GButton(this, width/2 + 620, height*5/6+35, 50, 30);
+
+  submitButton.setText("Submit");
 }
 
 void draw() {
@@ -115,28 +122,24 @@ void draw() {
   Date date = new Date();
   date.displayCurrentDateRange();
 
-  
-   if (showFieldsAndButton) {
+
+  if (showFieldsAndButton) {
     startDateField.setVisible(true);
     endDateField.setVisible(true);
     submitButton.setVisible(true);
-     date.displayCurrentDateRange();
+    date.displayCurrentDateRange();
   } else {
     startDateField.setVisible(false);
     endDateField.setVisible(false);
     submitButton.setVisible(false);
-   
-  }
-  
-  if(showTextBox){
-     getTextInput();
-    textbox.setVisible(true);
-  }
-  else{
-     textbox.setVisible(false);
   }
 
-     
+  if (showTextBox) {
+    getTextInput();
+    textbox.setVisible(true);
+  } else {
+    textbox.setVisible(false);
+  }
 }
 
 
@@ -146,9 +149,9 @@ void keyPressed() {
   if (key == '<' || key == '>') { // press '<' or '>' hide date range fields and button
     showFieldsAndButton = !showFieldsAndButton;
   }
-   if (key == TAB || key == TAB) { // press '<' or '>' hide date range fields and button
+  if (key == TAB || key == TAB) { // press '<' or '>' hide date range fields and button
     showTextBox = !showTextBox;
-    queryRequested = false; 
+    queryRequested = false;
   }
 
   //println(input);
