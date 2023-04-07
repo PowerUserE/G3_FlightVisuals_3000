@@ -1,6 +1,6 @@
 void parseFlightData() {
-  new Thread(new Runnable() {
-    public void run() {
+  /*new Thread(new Runnable() {
+    public void run() {*/
       String[] flightData = loadStrings(flightFilePath);
       for (int i = 1; i <flightData.length; i++) {
         // String[] flight = flightData[i].split(",");
@@ -26,7 +26,6 @@ void parseFlightData() {
           flightDate.add(temp);
           // Handle the exception, e.g., log the error, skip the row, or use a default date
           //  System.out.println("Error parsing date: " + e.getMessage());
-          altDateFormat = true;
         }
 
 
@@ -70,9 +69,9 @@ void parseFlightData() {
       }
       parsing = false;
    
-    }
+   /* }
   }).start();
-     println("parsing done");
+     println("parsing done");*/
 }
 
 

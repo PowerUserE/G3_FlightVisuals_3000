@@ -10,10 +10,9 @@ import java.util.Locale;
 
 boolean parsing = true;
 //String flightFilePath = "flights_full.csv";
-String flightFilePath = "flights10k.csv";
+String flightFilePath = "flights100k.csv";
 String[] flightData;
 
-boolean altDateFormat = false;
 
 Screen currentScreen, lastScreen, screen1, screen2, screen3, screen4;
 Widget widget1, widget2, widget3, widget4, widget5, widget6, widget7;

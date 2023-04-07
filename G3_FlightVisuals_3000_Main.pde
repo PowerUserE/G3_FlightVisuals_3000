@@ -163,7 +163,6 @@ void draw() {
 // One poroblem might be that we will need the keypresesed for some other action, right now, its tied to the functionality of the textbox and dropdown menu
 // A solution might be to get eoin to create a widget that activates or deactivates the text box and drop down menu
 void keyPressed() {
-  if (key == 't' || key == 'T') {
   if (key == '<' || key == '>') { // press '<' or '>' hide date range fields and button
     showFieldsAndButton = !showFieldsAndButton;
   }
@@ -197,8 +196,8 @@ void keyPressed() {
       }
     }
   }
-  }
 }
+
 
 void mousePressed() {
   switch(currentScreen.getEvent(mouseX, mouseY)) {
@@ -239,40 +238,3 @@ void mouseMoved() {
       aWidget.mouseNotOver();
   }
 }
-
-// remember, youre trying to organise the page and add the query button to the drop down menu
-
-// remember to get the team to import the js5 library // ask if it is allowed to make use of the library
-// Eoin organises the code
-// creates widgets
-// Daire works on sorting/retrieving method
-
-/*Class notes*/
-// Avoid file readings
-// what is pandas; research
-// Use different type of dats structures that I can store data sets e.g Hashsets, hashmaps
-// Ask group if they know how to use
-
-// implement 3 queries on the data
-//have a selection mechnism - invole different queries
-// draw the queries to the screen
-
-// three types of design patterns
-// use the observer pattern to structure the textbox functinality
-// implement a screen class to deal with each widget; look into the facade pattern
-// signature, saved file
-
-
-// show a sample query for the user
-// implement navigation e.g cusor to scroll through the results
-// run queries in respnse to user input and not draw
-
-
-// What to do for 5th April
-// redo the States but when clicked/hover, they will not lead to a new page, they will only specify a query on the stats summary page
-// Decide on a group name
-// Q button leads to a page with different query options(We have 3 for now)
-
-// We need to work on creating the summary stats with the states
-// We need to work on creating the actual query(chosen Q button) stats
-// Then the rest is Design
