@@ -2,7 +2,7 @@ class Widget {
   int x, y, width, height;
   String label;
   int event;
-  color widgetColor, labelColor;
+  color widgetColor, labelColor, lineColor;
   PFont widgetFont;
 
 
@@ -17,9 +17,11 @@ class Widget {
     this.widgetColor=widgetColor;
     this.widgetFont=widgetFont;
     labelColor= color(0);
+    lineColor= color(0);
   }
   void draw() {
     //border();
+    stroke(lineColor);
     textAlign(LEFT, BOTTOM); // temp
     fill(widgetColor);
     rect(x, y, width, height);
@@ -27,7 +29,13 @@ class Widget {
     textFont(widgetFont); // Set the font
     text(label, x + 5, y + height - 10);
   }
-
+  
+  void mouseOver() {
+    lineColor = color(255);
+  }
+  void mouseNotOver() {
+    lineColor = color(0);
+  }
 
   int getEvent(int mX, int mY) {
     if (mX>x && mX < x+width && mY >y && mY <y+height) {

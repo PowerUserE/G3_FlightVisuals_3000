@@ -22,7 +22,7 @@ class Screen {
     this.screenColor = screenColor;
     this.histogram = histogram;
     this.header = header;
-    hist = new Histogram(120, 600, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2);
+    hist = new Histogram(120, 600, 80, 1050, "MKT_CARRIER", "DISTANCE (km)", myFont2);
   }
   
   Screen(color screenColor, boolean pieChart)
@@ -108,12 +108,15 @@ class Screen {
     for (int i=0; i<screenWidgets.size(); i++)
     {
       Widget aWidget = (Widget) screenWidgets.get(i);
+      strokeWeight(1);
       aWidget.draw();
     }
     if (histogram)
     {
-      textAlign(LEFT, BOTTOM); // temp
-      text(header, 350, 40);
+      //textAlign(LEFT, BOTTOM); // temp
+      textSize(20);
+      fill(255);
+      text(header, width/2-400, 40);
       hist.draw();
     }
     if(pieChart)

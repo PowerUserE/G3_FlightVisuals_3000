@@ -35,16 +35,22 @@ void setup() {
   textBox();
   ////widget
   widget1 = new Widget(width-430, 22, 50, 40, "Q", color(0, 255, 0), widgetFont, EVENT_BUTTON1);
+  widgetList.add(widget1);
   widget2 = new Widget(width-75, 20, 70, 40, "HOME", color(0, 255, 0), widgetFont, EVENT_BUTTON2);
+  widgetList.add(widget2);
   widget3 = new Widget(width-75, 65, 65, 40, "BACK", color(0, 255, 0), widgetFont, EVENT_BUTTON3);
-  widget4 = new Widget(250, 300, 510, 40, "AVERAGE DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON4);
+  widgetList.add(widget3);
+  widget4 = new Widget(250, 300, 510, 40, "AVERAGE FLYING DISTANCE PER CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON4);
+  widgetList.add(widget4);
   widget5 = new Widget(250, 400, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON5);
+  widgetList.add(widget5);
   widget6 = new Widget(250, 500, 510, 40, "CARRIERS LATE VS CARRIERS ON-TIME", color(0, 255, 0), widgetFont, EVENT_BUTTON6);
+  widgetList.add(widget6);
 
 
   screen1 = new Screen(color(150), backgroundImage, mapImage);
   screen2 = new Screen(color(150));
-  screen3 = new Screen(color(150), histogram, "AVERAGE DISTANCE TRAVELLED BY EACH CARRIER");
+  screen3 = new Screen(color(150), histogram, "AVERAGE FLYING DISTANCE PER CARRIER");
   screen4 = new Screen(color(150), pieChart);
   screen1.add(widget1);
   screen2.add(widget2);
@@ -56,17 +62,15 @@ void setup() {
   screen4.add(widget2);
   screen4.add(widget3);
   currentScreen = screen1;
-  
-
 }
 
 void draw() {
   background(0);
-  if(drawHist == true)
+  if (drawHist == true)
   {
     histog.draw();
   }
-  
+
 
 
 
@@ -91,17 +95,17 @@ void draw() {
   if (queryRequested) {
     queryData.displayMessage();
   }
-  
-    if (showTextBox) {
-   getTextInput();
-   textbox.setVisible(true);
-   //println("text");
+
+  if (showTextBox) {
+    getTextInput();
+    textbox.setVisible(true);
+    //println("text");
   } else {
-     getTextInput();
-   textbox.setVisible(false);
-   // println("No Text");
-  } 
-  
+    getTextInput();
+    textbox.setVisible(false);
+    // println("No Text");
+  }
+
   stateData();
 }
 
@@ -114,7 +118,7 @@ void state() {
 // One poroblem might be that we will need the keypresesed for some other action, right now, its tied to the functionality of the textbox and dropdown menu
 // A solution might be to get eoin to create a widget that activates or deactivates the text box and drop down menu
 void keyPressed() {
-     if (key == 't' || key == 'T') {
+  if (key == 't' || key == 'T') {
     showTextBox = !showTextBox;
   }
 
@@ -171,10 +175,21 @@ void mousePressed() {
     currentScreen = screen4;
     break;
   }
-
 }
 
-// remember, youre trying to organise the page and add the query button to the drop down menu      
+void mouseMoved() {
+  int event;
+  for (int i = 0; i<widgetList.size(); i++) {
+    Widget aWidget = (Widget) widgetList.get(i);
+    event = aWidget.getEvent(mouseX, mouseY);
+    if (event != EVENT_NULL) {
+      aWidget.mouseOver();
+    } else
+      aWidget.mouseNotOver();
+  }
+}
+
+// remember, youre trying to organise the page and add the query button to the drop down menu
 
 // remember to get the team to import the js5 library // ask if it is allowed to make use of the library
 // Eoin organises the code
