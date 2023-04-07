@@ -24,7 +24,7 @@ class Screen {
     this.header = header;
     hist = new Histogram(120, 600, 80, 1050, "MKT_CARRIER", "DISTANCE (km)", myFont2);
   }
-  
+
   Screen(color screenColor, boolean pieChart)
   {
     screenWidgets = new ArrayList<Widget>();
@@ -55,14 +55,14 @@ class Screen {
     if (home)
     {
 
-      
+
       rectMode(CORNER);
       stroke(128, 0, 128); // Set the color of the line to purple
-      strokeWeight(3); // Set the thickness of the line to 4 pixels
+      strokeWeight(1); // Set the thickness of the line to 4 pixels
       // line(width/2 + 100, 0, width/2 + 100, height); // Draw the line shifted 100 pixels to the right
 
       noFill(); // Disable filling of the rectangle
-      rect(0, 0, width-3, height-3); // Draw a rectangle around the edges of the screen
+     // rect(0, 0, width-3, height-3); // Draw a rectangle around the edges of the screen
 
       image(screenBackg, 0, 0, width, height);
       image(usMap, (width - (usMap.width/(1.85)+390)), (height - (usMap.height/(1.85))), usMap.width/(1.85), usMap.height/(1.85)); //image(usMap, 25, 40, width, height);
@@ -70,17 +70,28 @@ class Screen {
       //startScreen();
       //background(0); // Set the background to white
       noFill(); // Disable filling of the rectangle
-      rect(0, 0, width-3, height-3); // Draw a rectangle around the edges of the screen
+     // rect(0, 0, width-3, height-3); // Draw a rectangle around the edges of the screen
 
+      rect(width-430, 65, 320, 32); // Header for summary heading
+      fill(0);
+        textAlign(LEFT, LEFT);
+      textFont(HeaderFont);
+      //textSize(30);
+      text("Quick Insights ", width-420, 50);
+       textFont(SubHeaderFont);
+      text("State: " + currStateFull, width-420, 90);
+      fill(255);
+
+      rect(width-100, 65, 70, 32); // Exit button
 
       rect(width/2 + 280, 110, 400, 30); // Header
       rect(width/2 + 280, 145, 400, 180);
       //image(histogramSample, width/2 + 280, 115+30, 400, 180);
-      
+
       rect(width/2 + 280, 340, 400, 30); // Header
       rect(width/2 + 280, 375, 400, 180);
       //image(pieChartSample, width/2 + 280, 375, 400, 180);
-      
+
       //image(histogramSample, width/2 + 280, 115+30, 400, 180);
 
       rect(width/2 + 280, 340, 400, 30); // Header
@@ -92,14 +103,15 @@ class Screen {
       //image(lineGraphSample, width/2 + 280, 115, 180, 180);
 
 
-      rect(width/2-400, 20, 600, 40);
+     // rect(width/2-400, 20, 600, 40);
       fill(0);
+      textFont(HeaderFont);
       textAlign(CENTER, RIGHT);
-      textSize(30);
+      //  textSize(30);
       text(GroupName, width/2-120, 55);
       //image(logo, width/2-150, 30, logo.height/5, logo.width/5);
       //histo.draw();
-      if(drawHist == true)
+      if (drawHist == true)
       {
         histog.draw();
       }
@@ -119,7 +131,7 @@ class Screen {
       text(header, width/2-400, 40);
       hist.draw();
     }
-    if(pieChart)
+    if (pieChart)
     {
       pie.draw();
     }

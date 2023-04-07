@@ -55,8 +55,11 @@ class StateHistogram {
       fill(labelColor);
       line(start_x, top_y, start_x, bottom_y);
       line(start_x, bottom_y, end_x, bottom_y);
-      textSize(18);
-      text("TOTAL NUMBER OF EACH AIRLINE IN " + chosenState, width/2 + 473, 134);
+      //textSize(18);
+      //text("TOTAL NUMBER OF EACH AIRLINE IN " + chosenState, width/2 + 473, 134);
+      textFont(SubHeaderFont);
+      textSize(20);
+      text("Histogram: Airline Distribution for "+ currState, width/2 + 473, 134);
       //text(yAxisLabel, start_x - 10, top_y - 40);
       //text(xAxisLabel, width/2 - 40, bottom_y + 70);
 

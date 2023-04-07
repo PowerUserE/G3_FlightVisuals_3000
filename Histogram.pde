@@ -13,7 +13,7 @@ class Histogram {
   ArrayList<String> distinctCarriers;
   ArrayList<Integer> cDistances = new ArrayList<Integer>();
   ArrayList<Integer> avgDistances = new ArrayList<Integer>();
-  ArrayList<Integer> cancelledPerCarrier = new ArrayList<Integer>();
+  ArrayList cancelledPerCarrier = new ArrayList();
   ArrayList<Integer> flightsPerCarrier = new ArrayList<Integer>();
 
   Histogram(int start_x, int bottom_y, int top_y, int end_x,
@@ -174,16 +174,16 @@ class Histogram {
   }
 
   ArrayList<Integer> getCarrierCancelled(ArrayList<String> carrierList) {
-    ArrayList<Integer> cancelledList = new ArrayList<Integer>();
+    ArrayList cancelledList = new ArrayList();
     for (int i=0; i<carrierList.size(); i++)
     {
-      int cancelledCount = 0;
+      float cancelledCount = 0;
       String carrier = carrierList.get(i);
       for (int j=0; j<mktCarrier.size(); j++)
       {
         String currentCarrier = mktCarrier.get(j);
         if (currentCarrier.equals(carrier)) {
-          int cancelledCarr = cancelled.get(j);
+          float cancelledCarr = cancelled.get(j);
           cancelledCount = cancelledCount + cancelledCarr;
         }
       }
