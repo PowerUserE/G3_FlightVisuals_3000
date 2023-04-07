@@ -11,7 +11,20 @@ void parseFlightData() {
     //int flightNumber = Integer.parseInt(row[2]); // The flight number is in the 3rd column (index 2)
     //flightNumbers.add(flightNumber);
 
-    flightDate.add(flight[0].replace("\"", ""));
+
+ try {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+    LocalDateTime parsedFlightDate = LocalDateTime.parse(flight[0].replace("\"", ""), formatter);
+    String formattedFlightDate = parsedFlightDate.format(formatter);
+    flightDate.add(formattedFlightDate);
+} catch (DateTimeParseException e) {
+    // Handle the exception, e.g., log the error, skip the row, or use a default date
+    System.out.println("Error parsing date: " + e.getMessage());
+}
+
+
+
+    //flightDate.add(flight[0].replace("\"", ""));
     mktCarrier.add(flight[1]);
     flightNum.add(Integer.parseInt(flight[2]));
     origin.add(flight[3]);
@@ -23,27 +36,24 @@ void parseFlightData() {
     destState.add(flight[9]);
     destWAC.add(Integer.parseInt(flight[10]));
     crsDepTime.add(flight[11]);
-        if(flight[12] == ""){
+    if (flight[12] == "") {
       depTime.add(0);
+    } else {
+      depTime.add(Integer.parseInt(flight[12]));
     }
-    else{
-    depTime.add(Integer.parseInt(flight[12]));
-    }
-    
-        if(flight[13] == ""){
+
+    if (flight[13] == "") {
       crsArrTime.add(0);
+    } else {
+      crsArrTime.add(Integer.parseInt(flight[13]));
     }
-    else{
-    crsArrTime.add(Integer.parseInt(flight[13]));
-    }
-    
-      if(flight[14] == ""){
+
+    if (flight[14] == "") {
       arrTime.add(0);
+    } else {
+      arrTime.add(Integer.parseInt(flight[14]));
     }
-    else{
-    arrTime.add(Integer.parseInt(flight[14]));
-    }
-    cancelled.add(Integer.parseInt(flight[15]));
+    cancelled.add(Float.parseFloat(flight[15]));
     diverted.add(flight[16]);
     //distance.add(flight[17]);
     distance.add(Float.parseFloat(flight[17]));
@@ -75,6 +85,6 @@ ArrayList<String> crsDepTime = new ArrayList<String>();
 ArrayList<Integer> depTime = new ArrayList<Integer>();
 ArrayList<Integer> crsArrTime = new ArrayList<Integer>();
 ArrayList<Integer> arrTime = new ArrayList<Integer>();
-ArrayList<Integer> cancelled = new ArrayList<Integer>();
+ArrayList<Float> cancelled = new ArrayList<Float>();
 ArrayList<String> diverted = new ArrayList<String>();
 ArrayList<Float> distance = new ArrayList<Float>();
