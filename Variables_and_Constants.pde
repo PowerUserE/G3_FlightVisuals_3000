@@ -9,8 +9,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 boolean parsing = true;
+//String flightFilePath = "flights2k.csv";
+String flightFilePath = "flights10k.csv";
+//String flightFilePath = "flights100k.csv";
 //String flightFilePath = "flights_full.csv";
-String flightFilePath = "flights100k.csv";
 String[] flightData;
 
 
@@ -44,7 +46,8 @@ boolean otherStatsRequested = false;
 
 Textfield textbox;
 
-String GroupName = "G3 Flight";
+String GroupName = "G3 Flights";
+PImage GroupLogo;
 
 String currState = "Null";
 String currStateFull = "Null";

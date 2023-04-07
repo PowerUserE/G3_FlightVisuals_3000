@@ -13,7 +13,7 @@ class Histogram {
   ArrayList<String> distinctCarriers;
   ArrayList<Integer> cDistances = new ArrayList<Integer>();
   ArrayList<Integer> avgDistances = new ArrayList<Integer>();
-  ArrayList cancelledPerCarrier = new ArrayList();
+  ArrayList<Float> cancelledPerCarrier = new ArrayList<Float>();
   ArrayList<Integer> flightsPerCarrier = new ArrayList<Integer>();
 
   Histogram(int start_x, int bottom_y, int top_y, int end_x,
@@ -134,7 +134,8 @@ class Histogram {
       y = top_y+(float)emptySpace;
       w = xAxisLength/numberOfDistinctCarriers;
       h = (float)rectSpace-1;
-
+      
+      int cancelled = round(cancelledPerCarrier.get(i));
       if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h) {
         stroke(255);    //highlight rectangle
         fill(0);
@@ -145,8 +146,8 @@ class Histogram {
         text(""+avgDistances.get(i)+" km", width/2+448, height/2+20);
         fill(0);
         textSize(16);
-        text("Total Flights = "+flightsPerCarrier.get(i), width/2+420, height/2+110);
-        text("Cancelled Flights = "+cancelledPerCarrier.get(i), width/2+420, height/2+140);
+        text("Total Flights = "+flightsPerCarrier.get(i), width/2+416, height/2+110);
+        text("Cancelled Flights = "+cancelled, width/2+416, height/2+140);
       } else {
         stroke(0);
       }
@@ -173,7 +174,7 @@ class Histogram {
     return total;
   }
 
-  ArrayList<Integer> getCarrierCancelled(ArrayList<String> carrierList) {
+  ArrayList<Float> getCarrierCancelled(ArrayList<String> carrierList) {
     ArrayList cancelledList = new ArrayList();
     for (int i=0; i<carrierList.size(); i++)
     {

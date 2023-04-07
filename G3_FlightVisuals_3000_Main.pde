@@ -9,11 +9,6 @@ String inputType = "carrier"; // by default, we shuld find the carrier informati
 
 void setup() {
 
-
-
-
-
-
   HeaderFont = loadFont("PTSerif-Bold-42.vlw"); // assign the loaded font to the variable
   SubHeaderFont = loadFont("PTSerif-Regular-28.vlw"); // assign the loaded font to the variable
   textBoxFont = loadFont("Arial-BoldMT-15.vlw");
