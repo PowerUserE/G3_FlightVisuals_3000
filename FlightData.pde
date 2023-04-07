@@ -3,7 +3,8 @@ boolean queryRequested = false;
 public class getData {
   // to make the code more dynamic, i might be able to add a displaymessge function
   //that shows the message on the screen and the parameters would be just a string based on the result of the query.
-
+  
+  Date date = new Date();
   getData() {
     queryRequested = true;
   }
@@ -11,14 +12,15 @@ public class getData {
     fill(0);
     textAlign(LEFT, TOP);
     textSize(20);
-   // text(queryResult, 20, 20);
-   text(queryResult,(width/2)+275, 85);
+    // text(queryResult, 20, 20);
+    text(queryResult, (width/2)+275, 85);
     // sample text from previous code, look back to debug if issues encountered
   }
   public int carrierDistance(String carrier) {
     int totalDistance = 0;
-    for (int i = 1; i<mktCarrier.size(); i++) {
-      if (mktCarrier.get(i).equals(carrier)) {
+    for (int i = 0; i<mktCarrier.size(); i++) {
+      if (mktCarrier.get(i).equals(carrier)&& date.isWithinDateRange(flightDate.get(i).substring(0, 10), StartDateinput,EndDateinput)) {
+        println("ckeckkkckks");
         totalDistance += distance.get(i);
       }
     }
@@ -31,7 +33,7 @@ public class getData {
   public int destCityCancelledFlights(String destCityCancelQuery) {
     int count = 0;
     for (int i = 0; i < destCity.size(); i++) {
-      if ((destCity.get(i).equals(destCityCancelQuery)) && (cancelled.get(i) != 0.0)) {
+      if ((destCity.get(i).equals(destCityCancelQuery)) && (cancelled.get(i) != 0.0) && date.isWithinDateRange(flightDate.get(i).substring(0, 10), startDate, endDate)) {
         count++;
       }
     }
@@ -53,9 +55,9 @@ public class getData {
     displayMessage();
     return count;
   }
-  
- 
 }
+
+
 int[] cancelledFlights() {
   int cancelledFlightsCount = 0;
   int earlyFlightsCount = 0;
