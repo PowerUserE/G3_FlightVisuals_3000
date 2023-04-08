@@ -5,7 +5,7 @@ class StateHistogram {
   //top_y = y position of the top of the y-axis
   //end_x = x position of the end of the x-axis
 
-  int start_x, bottom_y, top_y, end_x, labelColor, xAxisLength, yAxisLength, numberOfDistinctCarriers;
+  int start_x, bottom_y, top_y, end_x, labelColor, xAxisLength, yAxisLength, numberOfDistinctCarriers, highestCarrierCount;
   color colorOfRect;
   String xAxisLabel, yAxisLabel, chosenState;
   PFont labelFont;
@@ -35,6 +35,8 @@ class StateHistogram {
     numberOfDistinctCarriers = distinctCarriers.size();
     carrierCount = countNumberOfEachCarrier(currState, distinctCarriers, mktCarrier, originState);
     distinctStates = getDistinctStates();
+    highestCarrierCount = getHighestCarrierNumber(carrierCount);
+
     //println(distinctStates);
 
     //for(int i=0; i<distinctCarriers.size(); i++)
@@ -53,19 +55,18 @@ class StateHistogram {
       stroke(0);
       strokeWeight(1);
       fill(labelColor);
-      line(start_x, top_y, start_x, bottom_y);
-      line(start_x, bottom_y, end_x, bottom_y);
+      //line(start_x, top_y, start_x, bottom_y);      // draw y axis line
+      line(start_x, bottom_y, end_x, bottom_y);       // draw x axis line
       textFont(SubHeaderFont);
       textSize(20);
-      text("Histogram: Airline Distribution for "+ currState, width/2 + 473, 134);
+      text("Bar Chart: Airline Distribution for "+ currState, width/2 + 473, 134);
       //text(yAxisLabel, start_x - 10, top_y - 40);
       //text(xAxisLabel, width/2 - 40, bottom_y + 70);
 
       labelXAxis();
-      labelYAxis();
+      //labelYAxis();
       fillHistogram(colorOfRect);
-    }
-    else{
+    } else {
       drawHist = false;
     }
   }
@@ -107,23 +108,23 @@ class StateHistogram {
   ///////////////////////////////////
   //labels y axis and draws notches//
   ///////////////////////////////////
-  void labelYAxis() {
-    int highestYValue = 500;
-    int separation = top_y;
-    boolean maxYAxisValue = true;
-    for (int i=highestYValue; i>=0; i=i-100)
-    {
-      line(start_x-10, separation, start_x, separation);
-      String yAxisValues = Integer.toString(i);
-      textSize(10);
-      if (maxYAxisValue) {
-        text(yAxisValues, start_x-24, separation);
-        maxYAxisValue = false;
-      } else {
-        text(yAxisValues, start_x-24, separation = separation + yAxisLength/5);
-      }
-    }
-  }
+  //void labelYAxis() {
+  //  int highestYValue = 500;
+  //  int separation = top_y;
+  //  boolean maxYAxisValue = true;
+  //  for (int i=highestYValue; i>=0; i=i-100)
+  //  {
+  //    line(start_x-10, separation, start_x, separation);
+  //    String yAxisValues = Integer.toString(i);
+  //    textSize(10);
+  //    if (maxYAxisValue) {
+  //      text(yAxisValues, start_x-24, separation);
+  //      maxYAxisValue = false;
+  //    } else {
+  //      text(yAxisValues, start_x-24, separation = separation + yAxisLength/5);
+  //    }
+  //  }
+  //}
 
 
   /////////////////////////////////
@@ -136,12 +137,18 @@ class StateHistogram {
     for (int i=0; i<distinctCarriers.size(); i++)
     {
       int carrCount = carrierCount.get(i);
-      double carrCount_yAxis_ratio = (double)carrCount / (double)500;
+      double carrCount_yAxis_ratio = (double)carrCount / (double)highestCarrierCount;
 
       double rectSpace = yAxisLength * carrCount_yAxis_ratio;
       double emptySpace = yAxisLength - rectSpace;
       fill(colorRect);
-      rect(start_x+separation, top_y+(float)emptySpace, xAxisLength/numberOfDistinctCarriers, (float)rectSpace);
+      rect(start_x+separation+2, top_y+(float)emptySpace, xAxisLength/numberOfDistinctCarriers-5, (float)rectSpace);
+      if (carrCount > 0) {
+        fill(200, 0, 0);
+        textFont(widgetFont);
+        textSize(12);
+        text(carrCount, start_x+separation+20, top_y+(float)emptySpace-3);
+      }
       separation = separation + (xAxisLength/numberOfDistinctCarriers);
     }
   }
@@ -167,6 +174,19 @@ class StateHistogram {
     }
     //println(resultArray);
     return resultArray;
+  }
+
+  int getHighestCarrierNumber(ArrayList<Integer> carrierNumbers) {
+    int result = 0;
+    for (int i=0; i<carrierNumbers.size(); i++)
+    {
+      int temp = carrierNumbers.get(i);
+      if (temp > result)
+      {
+        result = temp;
+      }
+    }
+    return result;
   }
 
   ArrayList<String> getDistinctStates() {

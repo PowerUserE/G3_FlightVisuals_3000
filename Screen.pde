@@ -40,9 +40,7 @@ class Screen {
     screenWidgets = new ArrayList<Widget>();
     this.screenBackg = screenBackg;
     this.usMap = usMap;
-    //histo = new StateHistogram(width/2 + 320, 305, 160, width/2 +280+390, "MKT_CARRIER", "DISTANCE (KM)", myFont2);
     pieHome = new PieChart();
-    //histo = new StateHistogram(width/2 + 280, 325, 145, width/2 +280+400, "MKT_CARRIER", "DISTANCE (KM)", myFont2);
   }
 
   void add(Widget w) {
