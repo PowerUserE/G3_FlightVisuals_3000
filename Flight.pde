@@ -13,9 +13,10 @@ void parseFlightData() {
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
           LocalDateTime parsedFlightDate = LocalDateTime.parse(flight[0].replace("\"", ""), formatter);
           String formattedFlightDate = parsedFlightDate.format(formatter);
-          ;
-          flightDate.add(formattedFlightDate);
-          //  println(flight[0]);
+           int spaceIndex = formattedFlightDate.indexOf(" "); // most likely '8' but not sure for the full flights file
+          String temp =  formattedFlightDate.substring(1, spaceIndex); // this way will cause issues for flights month with double digits
+          flightDate.add(temp);
+            println(temp);
         }
         catch (DateTimeParseException e) {
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy hh:mm:ss a", Locale.US);
@@ -25,7 +26,8 @@ void parseFlightData() {
           String temp =  formattedFlightDate.substring(0, spaceIndex);
           flightDate.add(temp);
           // Handle the exception, e.g., log the error, skip the row, or use a default date
-          //  System.out.println("Error parsing date: " + e.getMessage());
+            //System.out.println("Error parsing date: " + e.getMessage());
+             println(temp);
         }
 
 
