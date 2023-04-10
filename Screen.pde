@@ -2,11 +2,12 @@ class Screen {
 
   ArrayList<Widget> screenWidgets;
   Histogram hist;
+  lineGraph lg;
   StateHistogram histo;
   PieChart pie, pieHome;
   color screenColor;
   PImage screenBackg, usMap;
-  boolean home, histogram, pieChart = false;
+  boolean home, histogram, pieChart, lineGraph = false;
   String header;
 
 
@@ -32,6 +33,13 @@ class Screen {
     this.pieChart = pieChart;
     pie = new PieChart();
   }
+
+Screen(color screenColor, boolean lineGraph, String placeHolder, int temp) {
+  this.screenColor = screenColor;
+  this.lineGraph = lineGraph;
+  screenWidgets = new ArrayList<Widget>();
+  lg = new lineGraph();
+}
 
   Screen(color screenColor, PImage screenBackg, PImage usMap)
   {
@@ -128,7 +136,27 @@ class Screen {
     }
     if (pieChart)
     {
-      pie.draw();
+     // pie.draw();
+    }
+    if(lineGraph){
+        lg.drawAxes();
+    for (Checkbox checkbox : checkboxes) {
+    checkbox.display();
+  }
+  
+
+  for (int i = 0; i < checkboxes.size(); i++) {
+    Checkbox checkbox = checkboxes.get(i);
+    if (checkbox.state) {
+      String airline = checkbox.label;
+      color airlineColor = checkbox.airlineColor;
+      DelayData delayData = calc(airline, currState);
+      Integer[] dayArray = delayData.dayArray;
+      Float[] totalDelaysArray = delayData.totalDelaysArray;
+      lg.draw(dayArray, totalDelaysArray, airline, airlineColor);
+    }
+  }
+    //  lg.drawLineGraph();
     }
   }
 
