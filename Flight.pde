@@ -1,6 +1,6 @@
 void parseFlightData() {
-  /*new Thread(new Runnable() {
-    public void run() {*/
+  //new Thread(new Runnable() {
+  //  public void run() {
       String[] flightData = loadStrings(flightFilePath);
       for (int i = 1; i <flightData.length; i++) {
         // String[] flight = flightData[i].split(",");
@@ -13,10 +13,9 @@ void parseFlightData() {
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
           LocalDateTime parsedFlightDate = LocalDateTime.parse(flight[0].replace("\"", ""), formatter);
           String formattedFlightDate = parsedFlightDate.format(formatter);
-           int spaceIndex = formattedFlightDate.indexOf(" "); // most likely '8' but not sure for the full flights file
-          String temp =  formattedFlightDate.substring(1, spaceIndex); // this way will cause issues for flights month with double digits
-          flightDate.add(temp);
-            println(temp);
+          
+          flightDate.add(formattedFlightDate);
+          //  println(flight[0]);
         }
         catch (DateTimeParseException e) {
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy hh:mm:ss a", Locale.US);
@@ -26,24 +25,29 @@ void parseFlightData() {
           String temp =  formattedFlightDate.substring(0, spaceIndex);
           flightDate.add(temp);
           // Handle the exception, e.g., log the error, skip the row, or use a default date
-            //System.out.println("Error parsing date: " + e.getMessage());
-             println(temp);
+          //  System.out.println("Error parsing date: " + e.getMessage());
         }
 
 
 
         //flightDate.add(flight[0].replace("\"", ""));
         mktCarrier.add(flight[1]);
+        //if(flight[1].equals("F9")){
+         // println(flight[1]);
+       // }
+        //println(flight[1]);
         flightNum.add(Integer.parseInt(flight[2]));
         origin.add(flight[3]);
         originCity.add(flight[4].replace("\"", ""));
         originState.add(flight[5]);
+       // println(flight[5]);
         originWAC.add(flight[6]);
         dest.add(flight[7]);
         destCity.add(flight[8].replace("\"", "")); // to get rid of the quotation marks
         destState.add(flight[9]);
+        //println(flight[9]);
         destWAC.add(Integer.parseInt(flight[10]));
-        crsDepTime.add(flight[11]);
+        crsDepTime.add(Integer.parseInt(flight[11]));
         if (flight[12] == "") {
           depTime.add(0);
         } else {
@@ -69,12 +73,15 @@ void parseFlightData() {
         //showLoadingScreen();
        // redraw();
       }
-      parsing = false;
    
-   /* }
-  }).start();
-     println("parsing done");*/
-}
+        for (int i = 0; i < 31; i++) {
+    daysMonth[i] = i + 1;
+  }
+  
+    }
+//  }).start();
+  //   println("parsing done");
+
 
 
 ArrayList<String[]> data = new ArrayList<>();
@@ -90,7 +97,7 @@ ArrayList<String> dest = new ArrayList<String>();
 ArrayList<String> destCity = new ArrayList<String>();
 ArrayList<String> destState = new ArrayList<String>();
 ArrayList<Integer> destWAC = new ArrayList<Integer>();
-ArrayList<String> crsDepTime = new ArrayList<String>();
+ArrayList<Integer> crsDepTime = new ArrayList<Integer>();
 ArrayList<Integer> depTime = new ArrayList<Integer>();
 ArrayList<Integer> crsArrTime = new ArrayList<Integer>();
 ArrayList<Integer> arrTime = new ArrayList<Integer>();

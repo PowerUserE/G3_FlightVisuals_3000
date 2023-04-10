@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+
 
 boolean parsing = true;
 String flightFilePath = "flights2k.csv";
@@ -16,7 +20,7 @@ String flightFilePath = "flights2k.csv";
 String[] flightData;
 
 
-Screen currentScreen, lastScreen, screen1, screen2, screen3, screen4;
+Screen currentScreen, lastScreen, screen1, screen2, screen3, screen4, screen5;
 Widget widget1, widget2, widget3, widget4, widget5, widget6, widget7;
 int gameScreen = 0;
 
@@ -31,6 +35,7 @@ ArrayList<Widget> widgetList = new ArrayList<Widget>();
 
 boolean histogram = true;
 boolean pieChart = true;
+boolean lineGraph = false;
 
 //String chosenState = "TX";
 
@@ -55,6 +60,7 @@ boolean drawHist = false;
 
 
 ArrayList<String> subQueryFlightDate = new ArrayList<String>();
+HashMap<String, Float> totalDelayTime = new HashMap<>();
 
 String startDate = "01/04/2022";   // sample start date
 String endDate = "01/06/2022";      // sampe end date
@@ -62,7 +68,17 @@ String endDate = "01/06/2022";      // sampe end date
 String StartDateinput = "01/01/2022";
 String EndDateinput = "01/12/2022";
 
- PFont  textBoxFont, screenFont, dropDownFont, buttonFont, HeaderFont, SubHeaderFont;
+PFont  textBoxFont, screenFont, dropDownFont, buttonFont, HeaderFont, SubHeaderFont;
 
 boolean showFieldsAndButton = true; // Set to 'true' to show fields and button by default
 boolean showTextBox =  false;
+
+int[] daysMonth = new int[31];
+int multiplier = 40;
+float max = 0;
+float min = 0;
+ArrayList<Checkbox> checkboxes = new ArrayList<Checkbox>();
+
+
+String[] airlines = {"AA", "NK", "AS", "B6", "DL", "F9", "G4", "HA", "UA", "WN"};
+color[] airlineColors = {color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 0), color(255, 0, 255), color(0, 255, 255), color(255, 128, 0), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};

@@ -6,9 +6,12 @@ PImage backgroundImage, mapImage, CA_MAP, lineGraphSample, pieChartSample, histo
 String screen = "home";
 String input = "";
 String inputType = "carrier"; // by default, we shuld find the carrier information
+Screen lineGraphScreen = new Screen(color(255), true);
+
+
 
 void setup() {
-
+  //noLoop();
   HeaderFont = loadFont("PTSerif-Bold-42.vlw"); // assign the loaded font to the variable
   SubHeaderFont = loadFont("PTSerif-Regular-28.vlw"); // assign the loaded font to the variable
   textBoxFont = loadFont("Arial-BoldMT-15.vlw");
@@ -52,7 +55,7 @@ void setup() {
   widgetList.add(widget4);
   widget5 = new Widget(250, 400, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON5);
   widgetList.add(widget5);
-  widget6 = new Widget(250, 500, 510, 40, "CARRIERS LATE VS CARRIERS ON-TIME", color(0, 255, 0), widgetFont, EVENT_BUTTON6);
+  widget6 = new Widget(250, 500, 510, 40, "Line Graph", color(0, 255, 0), widgetFont, EVENT_BUTTON6);
   widgetList.add(widget6);
   widget7 = new Widget(width-100, 65, 70, 32, "Exit", color(0, 255, 0), widgetFont, EVENT_BUTTON6); // remeber to run widget
 
@@ -62,6 +65,7 @@ void setup() {
   screen2 = new Screen(color(150));
   screen3 = new Screen(color(150), histogram, "AVERAGE FLYING DISTANCE PER CARRIER");
   screen4 = new Screen(color(150), pieChart);
+  screen5 = new Screen(color(255), lineGraph);
   screen1.add(widget1);
   screen2.add(widget2);
   screen2.add(widget4);
@@ -71,6 +75,10 @@ void setup() {
   screen3.add(widget3);
   screen4.add(widget2);
   screen4.add(widget3);
+  screen5.add(widget2);
+  screen5.add(widget3);
+  lineGraphScreen.add(widget2);
+  lineGraphScreen.add(widget3);
   currentScreen = screen1;
 
 
@@ -85,6 +93,10 @@ void setup() {
   submitButton = new GButton(this, width/2 + 620, height*5/6+35, 50, 30);
 
   submitButton.setText("Submit");
+
+  for (int i = 0; i < airlines.length; i++) {
+    checkboxes.add(new Checkbox(width-50, 120 + i * 25, 20, airlines[i], airlineColors[i]));
+  }
 }
 
 void draw() {
@@ -95,47 +107,36 @@ void draw() {
   }
 
 
+  currentScreen.draw();
 
 
-  switch (screen) {
-  case "home":
-    //case "textBox":
-  case "querypage":
-    stateData();
-    // getTextInput();
-    currentScreen.draw();
-    break;
-  case "state":
-    currentScreen.draw();
-    break;
-    //case "queryPage":
-    //currentScreen.draw();
-    //break;
-  default:
-    println("Invalid screen");
-    break;
-  }
+  //switch (screen) {
+  //case "home":
+  //  //case "textBox":
+  //case "querypage":
+  //  stateData();
+  //  // getTextInput();
+  //  //currentScreen.draw();
+  //  break;
+  //case "state":
+  //  //currentScreen.draw();
+  //  break;
+  //  //case "queryPage":
+  //  //currentScreen.draw();
+  //  //break;
+  //default:
+  //  println("Invalid screen");
+  //  break;
+  //}
   if (queryRequested) {
     queryData.displayMessage();
   }
-
-  if (showTextBox) {
-    getTextInput();
-    textbox.setVisible(true);
-    //println("text");
-  } else {
-    getTextInput();
-    textbox.setVisible(false);
-    // println("No Text");
+  Date date = new Date();
+  if ( currentScreen == screen1) {
+    date.displayCurrentDateRange();
   }
 
-
-  stateData();
-  Date date = new Date();
-  date.displayCurrentDateRange();
-
-
-  if (showFieldsAndButton) {
+  if (showFieldsAndButton && currentScreen == screen1) {
     startDateField.setVisible(true);
     endDateField.setVisible(true);
     submitButton.setVisible(true);
@@ -151,6 +152,28 @@ void draw() {
     textbox.setVisible(true);
   } else {
     textbox.setVisible(false);
+  }
+
+  if (lineGraph) {
+  
+    for (Checkbox checkbox : checkboxes) {
+       checkbox.display();
+    }
+
+
+    lineGraph lg = new lineGraph();
+    lg.drawAxes();
+    for (int j = 0; j < checkboxes.size(); j++) {
+      Checkbox checkbox = checkboxes.get(j);
+      if (checkbox.state) {
+        String airline = checkbox.label;
+        color airlineColor = checkbox.airlineColor;
+        DelayData delayData = calc(airline, currState);
+        Integer[] dayArray = delayData.dayArray;
+        Float[] totalDelaysArray = delayData.totalDelaysArray;
+        lg.draw(dayArray, totalDelaysArray, airline, airlineColor);
+      }
+    }
   }
 }
 
@@ -195,29 +218,39 @@ void keyPressed() {
 
 
 void mousePressed() {
+  println(mouseX, mouseY);
+  for (Checkbox checkbox : checkboxes) {
+    checkbox.checkClicked(mouseX, mouseY);
+  }
   switch(currentScreen.getEvent(mouseX, mouseY)) {
   case EVENT_BUTTON1:
+    lineGraph = false;
     lastScreen = currentScreen;
     currentScreen = screen2;
     break;
   case EVENT_BUTTON2:
+    lineGraph = false;
     lastScreen = currentScreen;
     currentScreen = screen1;
     break;
   case EVENT_BUTTON3:
+    lineGraph = false;
     currentScreen = lastScreen;
     break;
   case EVENT_BUTTON4:
+    lineGraph = false;
     lastScreen = currentScreen;
     currentScreen = screen3;
     break;
   case EVENT_BUTTON5:
+    lineGraph = false;
     lastScreen = currentScreen;
     currentScreen = screen4;
     break;
   case EVENT_BUTTON6:
+    lineGraph = true;
     lastScreen = currentScreen;
-    currentScreen = screen4;
+    currentScreen = lineGraphScreen;
     break;
   }
 }
@@ -231,5 +264,20 @@ void mouseMoved() {
       aWidget.mouseOver();
     } else
       aWidget.mouseNotOver();
+  }
+}
+
+void sortData(Integer[] xData, Float[] yData) { // bubble sort
+  for (int i = 0; i < xData.length - 1; i++) {
+    for (int j = 0; j < xData.length - i - 1; j++) {
+      if (xData[j] > xData[j + 1]) {
+        int xTemp = xData[j];
+        float yTemp = yData[j];
+        xData[j] = xData[j + 1];
+        yData[j] = yData[j + 1];
+        xData[j + 1] = xTemp;
+        yData[j + 1] = yTemp;
+      }
+    }
   }
 }
