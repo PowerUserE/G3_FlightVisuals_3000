@@ -3,7 +3,7 @@ boolean queryRequested = false;
 public class getData {
   // to make the code more dynamic, i might be able to add a displaymessge function
   //that shows the message on the screen and the parameters would be just a string based on the result of the query.
-  
+
   Date date = new Date();
   getData() {
     queryRequested = true;
@@ -12,18 +12,18 @@ public class getData {
     fill(0);
     textAlign(LEFT, TOP);
     textFont(screenFont);
-  //  textSize(20);
+    //  textSize(20);
     // text(queryResult, 20, 20);
     text(queryResult, width/2 + 290, height-125);
     noFill();
- //   rect(width/2 + 290, height-135, 375, 45);
+    //   rect(width/2 + 290, height-135, 375, 45);
     // sample text from previous code, look back to debug if issues encountered
   }
   public int carrierDistance(String carrier) {
     int totalDistance = 0;
     for (int i = 0; i<mktCarrier.size(); i++) {
-      if (mktCarrier.get(i).equals(carrier)&& date.isWithinDateRange(flightDate.get(i), StartDateinput,EndDateinput)) {
-       // println(flightDate.get(i));
+      if (mktCarrier.get(i).equals(carrier)&& date.isWithinDateRange(flightDate.get(i), StartDateinput, EndDateinput)) {
+        // println(flightDate.get(i));
         totalDistance += distance.get(i);
       }
     }
@@ -96,3 +96,26 @@ int[] cancelledFlights() {
   //println(delayedFlightsCount);
   return timeArray;
 }
+
+String getBriefStats(String hoveredState) {
+  String output = "Number of airports -> ";
+  ArrayList<String> airportList = new ArrayList<String>();
+  for (int i=0; i<originState.size(); i++)
+  {
+    String stateName = originState.get(i);
+    if (stateName.equals(hoveredState))
+    {
+      String airport = origin.get(i);
+      if (!airportList.contains(airport))
+        airportList.add(airport);
+    }
+  }
+  output = output + airportList.size()+"\n";
+  println(output);
+  return output;
+}
+
+
+//Number of airports ->
+//Most popular airline ->
+//Most poplar airport ->
