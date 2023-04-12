@@ -14,8 +14,8 @@ import java.util.Map;
 
 boolean parsing = true;
 //String flightFilePath = "flights2k.csv";
-String flightFilePath = "flights10k.csv";
-//String flightFilePath = "flights100k.csv";
+//String flightFilePath = "flights10k.csv";
+String flightFilePath = "flights100k.csv";
 //String flightFilePath = "flights_full.csv";
 String[] flightData;
 
