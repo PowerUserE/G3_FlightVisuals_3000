@@ -9,16 +9,20 @@ class DelayData {
 }
 
 DelayData calc(String specificAirline, String state) {
+  
+    
   float departureDelay = 0;
   float arrivalDelay = 0;
   HashMap<String, Float> totalDelayTime = new HashMap<>();
+  
 
   for (int i = 0; i < flightDate.size(); i++) {
+   
     String date = flightDate.get(i);
     String airline = mktCarrier.get(i); // Get the airline for the current flight
     String dateAndAirline = date + "_" + airline; // Concatenate date and airline with an underscore as delimiter
-
-if(originState.get(i).equals(state) || destState.get(i).equals(state)){
+    
+if((originState.get(i).equals(state) || destState.get(i).equals(state))){
      departureDelay = crsDepTime.get(i) - depTime.get(i);
      arrivalDelay = crsArrTime.get(i) - arrTime.get(i);
 }
@@ -98,4 +102,10 @@ if(originState.get(i).equals(state) || destState.get(i).equals(state)){
   Float[] totalDelaysArray = totalDelaysList.toArray(new Float[0]);
 
   return new DelayData(dayArray, totalDelaysArray);
+}
+float easeInOutQuart(float t) {
+  if ((t *= 2) < 1) {
+    return 0.5 * t * t * t * t;
+  }
+  return -0.5 * ((t -= 2) * t * t * t - 2);
 }
