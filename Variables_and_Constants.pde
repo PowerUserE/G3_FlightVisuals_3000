@@ -51,7 +51,7 @@ boolean otherStatsRequested = false;
 
 Textfield textbox;
 
-String GroupName = "G3 Flights";
+String GroupName = "KEED Flights";
 PImage GroupLogo;
 
 String currState = "Null";
