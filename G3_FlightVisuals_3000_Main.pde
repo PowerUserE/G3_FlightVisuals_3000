@@ -35,23 +35,23 @@ void setup() {
   logo = loadImage("G3Logo.png");
   loadingScreen = loadImage("loadingScreen.jpeg");
   queryIcon = loadImage("query.png");
-  queryIcon.resize(72,72); // Resize the icon to 64x64 pixels
+  queryIcon.resize(72, 72); // Resize the icon to 64x64 pixels
   homeIcon = loadImage("home.png");
-  homeIcon.resize(42,42); 
+  homeIcon.resize(42, 42);
   backIcon = loadImage("back.png");
-  backIcon.resize(42,42); 
+  backIcon.resize(42, 42);
   arrowIcon = loadImage("arrow.png");
-  arrowIcon.resize(28,28); 
+  arrowIcon.resize(28, 28);
   calendar = loadImage("calendar.png");
-  calendar.resize(28,28); 
+  calendar.resize(28, 28);
   settingsIcon = loadImage("gear.png");
-  settingsIcon.resize(28,28); 
+  settingsIcon.resize(28, 28);
   profileIcon = loadImage("profile.png");
-  profileIcon.resize(28,28); 
+  profileIcon.resize(28, 28);
   playIcon = loadImage("play.png");
-  playIcon.resize(28,28); 
+  playIcon.resize(28, 28);
   menuIcon = loadImage("editing.png");
-  menuIcon.resize(28,28); 
+  menuIcon.resize(28, 28);
   image = loadImage("treeWhiteTest.jpg");
 
   //image(loadingScreen, 0, 0, width, height);
@@ -85,7 +85,8 @@ void setup() {
   widget6 = new Widget(0, 400, 510, 40, "Line Graph", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6);
   widgetList.add(widget6);
   widget7 = new Widget(width-100, 65, 70, 32, "Exit", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6); // remember to run widget
-
+  histWidget1 = new Widget(width/2, 18, 150, 50, "All states", color(0, 150, 200), widgetFont, EVENT_BUTTON_HIST1);
+  histWidget2 = new Widget(width/2, 70, 220, 50, "Chosen state: ", color(170, 66, 245), widgetFont, EVENT_BUTTON_HIST2);
 
 
   screen1 = new Screen(color(255), backgroundImage, mapImage);
@@ -100,6 +101,8 @@ void setup() {
   screen2.add(widget6);
   screen3.add(widget2);
   screen3.add(widget3);
+  screen3.add(histWidget1);
+  screen3.add(histWidget2);
   screen4.add(widget2);
   screen4.add(widget3);
   screen5.add(widget2);
@@ -123,7 +126,7 @@ void setup() {
   for (int i = 0; i < airlines.length; i++) {
     checkboxes.add(new Checkbox(width-50, 120 + i * 25, 20, airlines[i], airlineColors[i]));
   }
-//  println(queryIcon.height, queryIcon.width);
+  //  println(queryIcon.height, queryIcon.width);
 }
 
 void draw() {
@@ -144,7 +147,7 @@ void draw() {
   //  currentScreen.draw();
   //}
 
-    currentScreen.draw();
+  currentScreen.draw();
 
 
 
@@ -290,6 +293,18 @@ void mousePressed() {
     lineGraph = true;
     lastScreen = currentScreen;
     currentScreen = lineGraphScreen;
+    break;
+  case EVENT_BUTTON_HIST1:
+    histWidget2.mouseNotOver();
+    histWidget1.mouseOver();
+    currStateHist = false;
+    allStatesHist = true;
+    break;
+  case EVENT_BUTTON_HIST2:
+    histWidget1.mouseNotOver();
+    histWidget2.mouseOver();
+    allStatesHist = false;
+    currStateHist = true;
     break;
   }
 }

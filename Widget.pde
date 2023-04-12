@@ -5,10 +5,11 @@ class Widget {
   color widgetColor, labelColor, lineColor;
   PFont widgetFont;
   PImage icon;
+  boolean iconButton = true;
 
   Widget(int x, int y, int width, int height, String label, PImage icon, color widgetColor, PFont widgetFont, int event) {
 
- // Widget(int x, int y, int width, int height, String label, color widgetColor, PFont widgetFont, int event) {
+    // Widget(int x, int y, int width, int height, String label, color widgetColor, PFont widgetFont, int event) {
     this.x=x;
     this.y=y;
     this.width = width;
@@ -18,25 +19,50 @@ class Widget {
     this.widgetColor=widgetColor;
     this.widgetFont=widgetFont;
     this.icon = icon;
+    iconButton = true;
+    labelColor= color(0);
+    lineColor= color(0);
+  }
+  Widget(int x, int y, int width, int height, String label,
+    color widgetColor, PFont widgetFont, int event) {
+    this.x=x;
+    this.y=y;
+    this.width = width;
+    this.height= height;
+    this.label=label;
+    this.event=event;
+    this.widgetColor=widgetColor;
+    this.widgetFont=widgetFont;
+    iconButton = false;
     labelColor= color(0);
     lineColor= color(0);
   }
   void draw() {
     //border();
-    stroke(lineColor);
-    textAlign(LEFT, BOTTOM); // temp
-    fill(widgetColor);
-    //rect(x, y, width, height);
-    
-        if (icon != null) {
-      image(icon, x + (width - icon.width) / 2, y + 5);
-    }
-    
-    fill(labelColor);
-    textFont(widgetFont); // Set the font
-  //  text(label, x + 5, y + height - 10);
+    if (iconButton) {
+      stroke(lineColor);
+      textAlign(LEFT, BOTTOM); // temp
+      fill(widgetColor);
+      //rect(x, y, width, height);
+
+      if (icon != null) {
+        image(icon, x + (width - icon.width) / 2, y + 5);
+      }
+
+      fill(labelColor);
+      textFont(widgetFont); // Set the font
+      //  text(label, x + 5, y + height - 10);
       text(label, x + (width - textWidth(label)) / 2, y + icon.height + 20);
- 
+    }
+    if (!iconButton) {
+      stroke(lineColor);
+      textAlign(LEFT, BOTTOM); // temp
+      fill(widgetColor);
+      rect(x, y, width, height);
+      fill(labelColor);
+      textFont(widgetFont); // Set the font
+      text(label, x + 5, y + height - 10);
+    }
   }
 
   void mouseOver() {

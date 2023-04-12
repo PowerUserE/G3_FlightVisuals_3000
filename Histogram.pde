@@ -8,8 +8,10 @@ class Histogram {
   int start_x, bottom_y, top_y, end_x, labelColor, xAxisLength, yAxisLength, numberOfDistinctCarriers;
   color colorOfRect;
   String xAxisLabel, yAxisLabel;
+  String currentState;
   float x, y, w, h;
   PFont labelFont;
+  boolean perStateData = false;
   ArrayList<String> distinctCarriers;
   ArrayList<Integer> cDistances = new ArrayList<Integer>();
   ArrayList<Integer> avgDistances = new ArrayList<Integer>();
@@ -17,7 +19,7 @@ class Histogram {
   ArrayList<Integer> flightsPerCarrier = new ArrayList<Integer>();
 
   Histogram(int start_x, int bottom_y, int top_y, int end_x,
-    String xAxisLabel, String yAxisLabel, PFont labelFont)
+    String xAxisLabel, String yAxisLabel, PFont labelFont, color colorOfRect, boolean perStateData, String currentState)
   {
     this.start_x=start_x;
     this.bottom_y=bottom_y;
@@ -25,6 +27,9 @@ class Histogram {
     this.end_x=end_x;
     this.xAxisLabel=xAxisLabel;
     this.yAxisLabel=yAxisLabel;
+    this.colorOfRect=colorOfRect;
+    this.perStateData=perStateData;
+    this.currentState=currentState;
     // this.labelFont=labelFont;
     // textFont(labelFont);
     labelColor = 255;
@@ -32,7 +37,6 @@ class Histogram {
     yAxisLength = bottom_y - top_y;
     //println(xAxisLength);
     //println(yAxisLength);
-    colorOfRect = color(0, 150, 200);
     distinctCarriers = getDistinctCarriers();
     numberOfDistinctCarriers = distinctCarriers.size();
     cancelledPerCarrier = getCarrierCancelled(distinctCarriers);
@@ -67,7 +71,6 @@ class Histogram {
     text("Other information:", width/2+420, height/2+70);
     fillHistogram(colorOfRect);
   }
-
 
   //////////////////////////////////////////////////////////
   //creates an array list containing all distinct carriers//
@@ -134,7 +137,7 @@ class Histogram {
       y = top_y+(float)emptySpace;
       w = xAxisLength/numberOfDistinctCarriers;
       h = (float)rectSpace-1;
-      
+
       int cancelled = round(cancelledPerCarrier.get(i));
       if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h) {
         stroke(255);    //highlight rectangle
@@ -152,43 +155,81 @@ class Histogram {
         stroke(0);
       }
       fill(colorRect);
-      rect(x, y, w, h);
+      if (rectSpace > 0)
+        rect(x, y, w, h);
     }
   }
-  
+
   ArrayList<Integer> getCarrierTotalFlights(ArrayList<String> carrierList) {
     ArrayList<Integer> total = new ArrayList<Integer>();
-    for(int i=0; i<carrierList.size(); i++)
-    {
-      int count = 0;
-      String carrier = carrierList.get(i);
-      for(int j=0; j<mktCarrier.size(); j++)
+    if (perStateData == false) {
+      for (int i=0; i<carrierList.size(); i++)
       {
-        String currCarrier = mktCarrier.get(j);
-        if(currCarrier.equals(carrier)){
-          count++;
+        int count = 0;
+        String carrier = carrierList.get(i);
+        for (int j=0; j<mktCarrier.size(); j++)
+        {
+          String currCarrier = mktCarrier.get(j);
+          if (currCarrier.equals(carrier)) {
+            count++;
+          }
         }
+        total.add(count);
       }
-      total.add(count);
+    }
+    if (perStateData == true) {
+      for (int i=0; i<carrierList.size(); i++)
+      {
+        int count = 0;
+        String carrier = carrierList.get(i);
+        for (int j=0; j<mktCarrier.size(); j++)
+        {
+          String currCarrier = mktCarrier.get(j);
+          String stateName = originState.get(j);
+          if (currCarrier.equals(carrier) && stateName.equals(currentState)) {
+            count++;
+          }
+        }
+        total.add(count);
+      }
     }
     return total;
   }
 
   ArrayList<Float> getCarrierCancelled(ArrayList<String> carrierList) {
     ArrayList cancelledList = new ArrayList();
-    for (int i=0; i<carrierList.size(); i++)
-    {
-      float cancelledCount = 0;
-      String carrier = carrierList.get(i);
-      for (int j=0; j<mktCarrier.size(); j++)
+    if (perStateData == false) {
+      for (int i=0; i<carrierList.size(); i++)
       {
-        String currentCarrier = mktCarrier.get(j);
-        if (currentCarrier.equals(carrier)) {
-          float cancelledCarr = cancelled.get(j);
-          cancelledCount = cancelledCount + cancelledCarr;
+        float cancelledCount = 0;
+        String carrier = carrierList.get(i);
+        for (int j=0; j<mktCarrier.size(); j++)
+        {
+          String currentCarrier = mktCarrier.get(j);
+          if (currentCarrier.equals(carrier)) {
+            float cancelledCarr = cancelled.get(j);
+            cancelledCount = cancelledCount + cancelledCarr;
+          }
         }
+        cancelledList.add(cancelledCount);
       }
-      cancelledList.add(cancelledCount);
+    }
+    if (perStateData == true) {
+      for (int i=0; i<carrierList.size(); i++)
+      {
+        float cancelledCount = 0;
+        String carrier = carrierList.get(i);
+        for (int j=0; j<mktCarrier.size(); j++)
+        {
+          String currentCarrier = mktCarrier.get(j);
+          String stateName = originState.get(j);
+          if (currentCarrier.equals(carrier) && stateName.equals(currentState)) {
+            float cancelledCarr = cancelled.get(j);
+            cancelledCount = cancelledCount + cancelledCarr;
+          }
+        }
+        cancelledList.add(cancelledCount);
+      }
     }
     return cancelledList;
   }
@@ -200,14 +241,32 @@ class Histogram {
   float getAverageDistance(String carrier) {
     float totalDistance = 0;
     float count = 0;
-    for (int i=0; i<distance.size(); i++)
+    if (perStateData == false)
     {
-      String tempCarrier = mktCarrier.get(i);
-      if (tempCarrier == carrier)
+      for (int i=0; i<distance.size(); i++)
       {
-        float dist = distance.get(i);
-        count = count + 1;
-        totalDistance = totalDistance + dist;
+        String tempCarrier = mktCarrier.get(i);
+        if (tempCarrier == carrier)
+        {
+          float dist = distance.get(i);
+          count = count + 1;
+          totalDistance = totalDistance + dist;
+        }
+      }
+    }
+    if (perStateData == true)
+    {
+      for (int i=0; i<distance.size(); i++)
+      {
+        String tempCarrier = mktCarrier.get(i);
+        String stateName = originState.get(i);
+
+        if ((tempCarrier.equals(carrier))&&(stateName.equals(currentState)))
+        {
+          float dist = distance.get(i);
+          count = count + 1;
+          totalDistance = totalDistance + dist;
+        }
       }
     }
     return totalDistance / count;
