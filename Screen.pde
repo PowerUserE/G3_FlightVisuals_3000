@@ -4,7 +4,7 @@ class Screen {
   Histogram hist;
   lineGraph lg;
   StateHistogram histo;
-  PieChart pie, pieHome;
+ // PieChart pie, pieHome;
   color screenColor;
   PImage screenBackg, usMap;
   boolean home, histogram, pieChart, lineGraph = false;
@@ -31,7 +31,7 @@ class Screen {
     screenWidgets = new ArrayList<Widget>();
     this.screenColor = screenColor;
     this.pieChart = pieChart;
-    pie = new PieChart();
+  //  pie = new PieChart();
   }
 
 Screen(color screenColor, boolean lineGraph, String placeHolder, int temp) {
@@ -48,7 +48,7 @@ Screen(color screenColor, boolean lineGraph, String placeHolder, int temp) {
     screenWidgets = new ArrayList<Widget>();
     this.screenBackg = screenBackg;
     this.usMap = usMap;
-    pieHome = new PieChart();
+   // pieHome = new PieChart();
   }
 
   void add(Widget w) {
@@ -115,13 +115,14 @@ Screen(color screenColor, boolean lineGraph, String placeHolder, int temp) {
       textAlign(CENTER, RIGHT);
       //  textSize(30);
       text(GroupName, width/2-120, 55);
+      // Hover Data Text
       //image(logo, width/2-150, 30, logo.height/5, logo.width/5);
       //histo.draw();
       if (drawHist == true)
       {
         histog.draw();
       }
-      pieHome.draw();
+     // pieHome.draw();
     }
     for (int i=0; i<screenWidgets.size(); i++)
     {

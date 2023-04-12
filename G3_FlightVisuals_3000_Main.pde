@@ -107,6 +107,7 @@ void draw() {
   }
 
 
+
   currentScreen.draw();
 
 
@@ -133,6 +134,7 @@ void draw() {
   }
   Date date = new Date();
   if ( currentScreen == screen1) {
+    hoverFunction();
     date.displayCurrentDateRange();
   }
 
