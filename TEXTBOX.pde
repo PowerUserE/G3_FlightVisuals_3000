@@ -5,7 +5,7 @@ void textBox() {
   cp5 = new ControlP5(this);
   //cp5.addTextfield("carrier")
    textbox = cp5.addTextfield("Press 'TAB' to Hide/Show or 'clear' to clear") // have to put the parameters later on e.g what the user is allowed to type
-    .setPosition(width/2 + 290, height*5/6-35)
+    .setPosition(width/2 + 290, height-200)
     .setSize(375, 45)
     .setAutoClear(false);
   textbox.setColorBackground(color(0)); // Set background color to white

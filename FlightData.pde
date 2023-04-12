@@ -11,19 +11,23 @@ public class getData {
   void displayMessage() { // void it dosent return any value, just modifies the text on screen
     fill(0);
     textAlign(LEFT, TOP);
-    textSize(20);
+    textFont(screenFont);
+  //  textSize(20);
     // text(queryResult, 20, 20);
-    text(queryResult, (width/2)+275, 85);
+    text(queryResult, width/2 + 290, height-125);
+    noFill();
+ //   rect(width/2 + 290, height-135, 375, 45);
     // sample text from previous code, look back to debug if issues encountered
   }
   public int carrierDistance(String carrier) {
     int totalDistance = 0;
     for (int i = 0; i<mktCarrier.size(); i++) {
       if (mktCarrier.get(i).equals(carrier)&& date.isWithinDateRange(flightDate.get(i), StartDateinput,EndDateinput)) {
+       // println(flightDate.get(i));
         totalDistance += distance.get(i);
       }
     }
-    queryResult = ("Total distance for carrier " + carrier + ": " + totalDistance);
+    queryResult = ("Total distance for carrier " + carrier  + ": " + totalDistance);
     println(queryResult);
     displayMessage();
     return totalDistance; // this return is here because we might implement the result of this function differently e.g(using the result to calculate something else), depends on use case. for now, we just print!!!
@@ -32,7 +36,7 @@ public class getData {
   public int destCityCancelledFlights(String destCityCancelQuery) {
     int count = 0;
     for (int i = 0; i < destCity.size(); i++) {
-      if ((destCity.get(i).equals(destCityCancelQuery)) && (cancelled.get(i) != 0.0) && date.isWithinDateRange(flightDate.get(i), startDate, endDate)) {
+      if ((destCity.get(i).equals(destCityCancelQuery)) && (cancelled.get(i) != 0.0) && date.isWithinDateRange(flightDate.get(i), StartDateinput, EndDateinput)) {
         count++;
       }
     }

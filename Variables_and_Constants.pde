@@ -24,6 +24,8 @@ Screen currentScreen, lastScreen, screen1, screen2, screen3, screen4, screen5;
 Widget widget1, widget2, widget3, widget4, widget5, widget6, widget7;
 int gameScreen = 0;
 
+
+
 final int EVENT_BUTTON1 = 1;
 final int EVENT_BUTTON2 = 2;
 final int EVENT_BUTTON3 = 3;
@@ -47,12 +49,15 @@ PFont widgetFont;
 
 boolean otherStatsRequested = false;
 
+float transitionProgress = 0.0;
 
 
 Textfield textbox;
 
-String GroupName = "KEED Flights";
+String GroupName = "G3 FLIGHT";
 PImage GroupLogo;
+PImage queryIcon, homeIcon, backIcon;
+
 
 String currState = "Null";
 String currStateFull = "Null";
@@ -62,11 +67,8 @@ boolean drawHist = false;
 ArrayList<String> subQueryFlightDate = new ArrayList<String>();
 HashMap<String, Float> totalDelayTime = new HashMap<>();
 
-String startDate = "01/04/2022";   // sample start date
-String endDate = "01/06/2022";      // sampe end date
-
 String StartDateinput = "01/01/2022";
-String EndDateinput = "01/12/2022";
+String EndDateinput = "01/31/2022";
 
 PFont  textBoxFont, screenFont, dropDownFont, buttonFont, HeaderFont, SubHeaderFont;
 

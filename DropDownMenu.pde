@@ -6,7 +6,7 @@ void dropDown() {
   // Create the dropdown list
   userQuery = cp5.addDropdownList("userQuery")
     .setPosition(0, 0)
-    .setSize(200, 200)
+    .setSize(300, 300)
     .setBarHeight(30) // Modify the bar height to a smaller value
     .setItemHeight(25) // Set the height of each item in the list
     .setBackgroundColor(color(0)) // Change the background color of the list

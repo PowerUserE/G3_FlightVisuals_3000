@@ -2,7 +2,10 @@ import controlP5.*;
 
 ControlP5 cp5;
 String carrier;
-PImage backgroundImage, mapImage, CA_MAP, lineGraphSample, pieChartSample, histogramSample, logo, loadingScreen;
+PImage backgroundImage, mapImage, CA_MAP, lineGraphSample, pieChartSample, histogramSample, logo, loadingScreen, arrowIcon, calendar, settingsIcon, profileIcon;
+PImage playIcon, menuIcon, image;
+PImage lastScreenT;
+PImage currentScreenT;
 String screen = "home";
 String input = "";
 String inputType = "carrier"; // by default, we shuld find the carrier information
@@ -20,16 +23,37 @@ void setup() {
   buttonFont = loadFont("Arial-BoldMT-15.vlw");
   widgetFont = loadFont("Arial-BoldMT-15.vlw"); // I havent used some of this yet but we might want to use different fonts in the future
 
-  //size(1420, 800);
+  //size(2000, 1127);
   size(1420, 700);
 
   //backgroundImage = loadImage("backgroundFinal.jpeg");
   backgroundImage = loadImage("treeWhiteTest.jpg");
+  //backgroundImage = loadImage("offWhite.jpeg");
   lineGraphSample = loadImage("lineGraphSample.png");
   pieChartSample = loadImage("pieChartSample.png");
   histogramSample = loadImage("histogramSample.png");
   logo = loadImage("G3Logo.png");
   loadingScreen = loadImage("loadingScreen.jpeg");
+  queryIcon = loadImage("query.png");
+  queryIcon.resize(72,72); // Resize the icon to 64x64 pixels
+  homeIcon = loadImage("home.png");
+  homeIcon.resize(42,42); 
+  backIcon = loadImage("back.png");
+  backIcon.resize(42,42); 
+  arrowIcon = loadImage("arrow.png");
+  arrowIcon.resize(28,28); 
+  calendar = loadImage("calendar.png");
+  calendar.resize(28,28); 
+  settingsIcon = loadImage("gear.png");
+  settingsIcon.resize(28,28); 
+  profileIcon = loadImage("profile.png");
+  profileIcon.resize(28,28); 
+  playIcon = loadImage("play.png");
+  playIcon.resize(28,28); 
+  menuIcon = loadImage("editing.png");
+  menuIcon.resize(28,28); 
+  image = loadImage("treeWhiteTest.jpg");
+
   //image(loadingScreen, 0, 0, width, height);
   parseFlightData();
 
@@ -39,32 +63,35 @@ void setup() {
 
 
 
+
   dropDown();
   textBox();
   ////widget
-  widget1 = new Widget(width-430, 22, 50, 40, "Q", color(0, 255, 0), widgetFont, EVENT_BUTTON1);
+  widget1 = new Widget(width-400, 22, 50, 40, "Q", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON1);
   widgetList.add(widget1);
+  widget1 = new Widget(width-100, 20, 70, 32, " ", queryIcon, color(255), widgetFont, EVENT_BUTTON1);
+  widget2 = new Widget(width-75, 20, 70, 40, "", homeIcon, color(255), widgetFont, EVENT_BUTTON2);
+  widget3 = new Widget(width-75, 70, 65, 40, "", backIcon, color(255), widgetFont, EVENT_BUTTON3);
 
-
-  widget1 = new Widget(width-100, 65, 70, 32, "Query", color(0, 255, 0), widgetFont, EVENT_BUTTON1);
-  widget2 = new Widget(width-75, 20, 70, 40, "HOME", color(0, 255, 0), widgetFont, EVENT_BUTTON2);
+  // widget1 = new Widget(width-100, 65, 70, 32, "Query", color(0, 255, 0), widgetFont, EVENT_BUTTON1);
+  // widget2 = new Widget(width-75, 20, 70, 40, "HOME", color(0, 255, 0), widgetFont, EVENT_BUTTON2);
   widgetList.add(widget2);
-  widget3 = new Widget(width-75, 65, 65, 40, "BACK", color(0, 255, 0), widgetFont, EVENT_BUTTON3);
+  // widget3 = new Widget(width-75, 65, 65, 40, "BACK", color(0, 255, 0), widgetFont, EVENT_BUTTON3);
   widgetList.add(widget3);
-  widget4 = new Widget(250, 300, 510, 40, "AVERAGE FLYING DISTANCE PER CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON4);
+  widget4 = new Widget(0, 200, 510, 40, "AVERAGE FLYING DISTANCE PER CARRIER", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON4);
   widgetList.add(widget4);
-  widget5 = new Widget(250, 400, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", color(0, 255, 0), widgetFont, EVENT_BUTTON5);
+  widget5 = new Widget(0, 300, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON5);
   widgetList.add(widget5);
-  widget6 = new Widget(250, 500, 510, 40, "Line Graph", color(0, 255, 0), widgetFont, EVENT_BUTTON6);
+  widget6 = new Widget(0, 400, 510, 40, "Line Graph", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6);
   widgetList.add(widget6);
-  widget7 = new Widget(width-100, 65, 70, 32, "Exit", color(0, 255, 0), widgetFont, EVENT_BUTTON6); // remeber to run widget
+  widget7 = new Widget(width-100, 65, 70, 32, "Exit", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6); // remember to run widget
 
 
 
-  screen1 = new Screen(color(150), backgroundImage, mapImage);
-  screen2 = new Screen(color(150));
+  screen1 = new Screen(color(255), backgroundImage, mapImage);
+  screen2 = new Screen(color(255));
   screen3 = new Screen(color(150), histogram, "AVERAGE FLYING DISTANCE PER CARRIER");
-  screen4 = new Screen(color(150), pieChart);
+  screen4 = new Screen(color(255), pieChart);
   screen5 = new Screen(color(255), lineGraph);
   screen1.add(widget1);
   screen2.add(widget2);
@@ -83,7 +110,6 @@ void setup() {
 
 
 
-
   Date date = new Date();
   //date.dateRange("01/04/2022", "01/06/2022", "01/04/2022");
 
@@ -97,6 +123,7 @@ void setup() {
   for (int i = 0; i < airlines.length; i++) {
     checkboxes.add(new Checkbox(width-50, 120 + i * 25, 20, airlines[i], airlineColors[i]));
   }
+//  println(queryIcon.height, queryIcon.width);
 }
 
 void draw() {
@@ -108,7 +135,17 @@ void draw() {
 
 
 
-  currentScreen.draw();
+  //if (transitionProgress < 1.0) {
+  //  transitionProgress += 0.19; // Control the transition speed here (higher value = faster transition)
+  //  image(image, 0, 0, width, height);
+  //  //tint(0, lerp(0, 255, transitionProgress)); // Apply the lerp function to interpolate the alpha channel
+  //  noTint();
+  //} else {
+  //  currentScreen.draw();
+  //}
+
+    currentScreen.draw();
+
 
 
   //switch (screen) {
@@ -133,12 +170,12 @@ void draw() {
     queryData.displayMessage();
   }
   Date date = new Date();
-  if ( currentScreen == screen1) {
+  if ( currentScreen == screen1 || currentScreen == screen2) {
     hoverFunction();
     date.displayCurrentDateRange();
   }
 
-  if (showFieldsAndButton && currentScreen == screen1) {
+  if (showFieldsAndButton && (currentScreen == screen1 || currentScreen == screen2)) {
     startDateField.setVisible(true);
     endDateField.setVisible(true);
     submitButton.setVisible(true);
@@ -157,9 +194,9 @@ void draw() {
   }
 
   if (lineGraph) {
-  
+
     for (Checkbox checkbox : checkboxes) {
-       checkbox.display();
+      checkbox.display();
     }
 
 
@@ -170,7 +207,7 @@ void draw() {
       if (checkbox.state) {
         String airline = checkbox.label;
         color airlineColor = checkbox.airlineColor;
-        DelayData delayData = calc(airline, currState);
+        DelayData delayData = calc(airline, currState);//////////
         Integer[] dayArray = delayData.dayArray;
         Float[] totalDelaysArray = delayData.totalDelaysArray;
         lg.draw(dayArray, totalDelaysArray, airline, airlineColor);
@@ -256,6 +293,9 @@ void mousePressed() {
     break;
   }
 }
+
+
+
 
 void mouseMoved() {
   int event;

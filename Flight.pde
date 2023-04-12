@@ -1,6 +1,6 @@
 void parseFlightData() {
-  //new Thread(new Runnable() {
-  //  public void run() {
+ // new Thread(new Runnable() {
+   // public void run() {
       String[] flightData = loadStrings(flightFilePath);
       for (int i = 1; i <flightData.length; i++) {
         // String[] flight = flightData[i].split(",");
@@ -13,7 +13,7 @@ void parseFlightData() {
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
           LocalDateTime parsedFlightDate = LocalDateTime.parse(flight[0].replace("\"", ""), formatter);
           String formattedFlightDate = parsedFlightDate.format(formatter);
-          
+
           flightDate.add(formattedFlightDate);
           //  println(flight[0]);
         }
@@ -33,14 +33,14 @@ void parseFlightData() {
         //flightDate.add(flight[0].replace("\"", ""));
         mktCarrier.add(flight[1]);
         //if(flight[1].equals("F9")){
-         // println(flight[1]);
-       // }
+        // println(flight[1]);
+        // }
         //println(flight[1]);
         flightNum.add(Integer.parseInt(flight[2]));
         origin.add(flight[3]);
         originCity.add(flight[4].replace("\"", ""));
         originState.add(flight[5]);
-       // println(flight[5]);
+        // println(flight[5]);
         originWAC.add(flight[6]);
         dest.add(flight[7]);
         destCity.add(flight[8].replace("\"", "")); // to get rid of the quotation marks
@@ -70,19 +70,18 @@ void parseFlightData() {
         //distance.add(flight[17]);
         distance.add(Float.parseFloat(flight[17]));
 
-        //showLoadingScreen();
+       // showLoadingScreen();
        // redraw();
       }
-   
-        for (int i = 0; i < 31; i++) {
-    daysMonth[i] = i + 1;
-  }
-  
+
+      for (int i = 0; i < 31; i++) {
+        daysMonth[i] = i + 1;
+      }
     }
-//  }).start();
-  //   println("parsing done");
-
-
+  //}
+//  ).start();
+ // println("parsing done");
+//}
 
 ArrayList<String[]> data = new ArrayList<>();
 
