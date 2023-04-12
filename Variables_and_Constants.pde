@@ -13,8 +13,8 @@ import java.util.Map;
 
 
 boolean parsing = true;
-String flightFilePath = "flights2k.csv";
-//String flightFilePath = "flights10k.csv";
+//String flightFilePath = "flights2k.csv";
+String flightFilePath = "flights10k.csv";
 //String flightFilePath = "flights100k.csv";
 //String flightFilePath = "flights_full.csv";
 String[] flightData;
@@ -32,6 +32,7 @@ final int EVENT_BUTTON3 = 3;
 final int EVENT_BUTTON4 = 4;
 final int EVENT_BUTTON5 = 5;
 final int EVENT_BUTTON6 = 6;
+final int EVENT_BUTTON7 = 7;
 final int EVENT_BUTTON_HIST1 = 8;
 final int EVENT_BUTTON_HIST2 = 9;
 final int EVENT_NULL = 0;

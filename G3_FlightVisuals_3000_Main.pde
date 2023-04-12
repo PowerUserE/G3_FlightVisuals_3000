@@ -84,7 +84,8 @@ void setup() {
   widgetList.add(widget5);
   widget6 = new Widget(0, 400, 510, 40, "Line Graph", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6);
   widgetList.add(widget6);
-  widget7 = new Widget(width-100, 65, 70, 32, "Exit", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6); // remember to run widget
+  widget7 = new Widget(width-85, 143, 70, 32, "", menuIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON7); // remember to run widget
+  widgetList.add(widget7);
   histWidget1 = new Widget(width/2, 18, 150, 50, "All states", color(0, 150, 200), widgetFont, EVENT_BUTTON_HIST1);
   histWidget2 = new Widget(width/2, 70, 220, 50, "Chosen state: ", color(170, 66, 245), widgetFont, EVENT_BUTTON_HIST2);
 
@@ -95,6 +96,7 @@ void setup() {
   screen4 = new Screen(color(255), pieChart);
   screen5 = new Screen(color(255), lineGraph);
   screen1.add(widget1);
+  screen1.add(widget7);
   screen2.add(widget2);
   screen2.add(widget4);
   screen2.add(widget5);
@@ -293,6 +295,11 @@ void mousePressed() {
     lineGraph = true;
     lastScreen = currentScreen;
     currentScreen = lineGraphScreen;
+    break;
+  case EVENT_BUTTON7:
+    lineGraph = false;
+    drawHist = !drawHist;
+    println("switch graphs", drawHist);
     break;
   case EVENT_BUTTON_HIST1:
     histWidget2.mouseNotOver();
