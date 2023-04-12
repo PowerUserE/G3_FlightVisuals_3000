@@ -21,7 +21,7 @@ String[] flightData;
 
 
 Screen currentScreen, lastScreen, screen1, screen2, screen3, screen4, screen5;
-Widget widget1, widget2, widget3, widget4, widget5, widget6, widget7;
+Widget widget1, widget2, widget3, widget4, widget5, widget6, widget7, histWidget1, histWidget2;
 int gameScreen = 0;
 
 
@@ -32,12 +32,16 @@ final int EVENT_BUTTON3 = 3;
 final int EVENT_BUTTON4 = 4;
 final int EVENT_BUTTON5 = 5;
 final int EVENT_BUTTON6 = 6;
+final int EVENT_BUTTON_HIST1 = 8;
+final int EVENT_BUTTON_HIST2 = 9;
 final int EVENT_NULL = 0;
 ArrayList<Widget> widgetList = new ArrayList<Widget>();
 
 boolean histogram = true;
 boolean pieChart = true;
 boolean lineGraph = false;
+boolean allStatesHist = false;
+boolean currStateHist = false;
 
 //String chosenState = "TX";
 

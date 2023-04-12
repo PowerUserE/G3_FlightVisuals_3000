@@ -1,8 +1,8 @@
 class Screen {
- 
- 
+
+
   ArrayList<Widget> screenWidgets;
-  Histogram hist;
+  Histogram hist, stateHist;
   lineGraph lg;
   StateHistogram histo;
   PieChart pie, pieHome;
@@ -10,7 +10,7 @@ class Screen {
   PImage screenBackg, usMap;
   boolean home, histogram, pieChart, lineGraph = false;
   String header;
-  
+
   Screen(color screenColor)
   {
     screenWidgets = new ArrayList<Widget>();
@@ -23,7 +23,6 @@ class Screen {
     this.screenColor = screenColor;
     this.histogram = histogram;
     this.header = header;
-    hist = new Histogram(120, 600, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2);
   }
 
   Screen(color screenColor, boolean pieChart)
@@ -126,7 +125,7 @@ class Screen {
       {
         histog.draw();
       }
-    //  pieHome.draw();
+      //  pieHome.draw();
     }
     for (int i=0; i<screenWidgets.size(); i++)
     {
@@ -137,7 +136,16 @@ class Screen {
     {
       textAlign(LEFT, BOTTOM); // temp
       text(header, 350, 40);
-      hist.draw();
+      text(currStateFull, width/2+106, 110);
+      boolean stateHisto;
+      if (allStatesHist) {
+        hist = new Histogram(120, 600, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2, color(0, 150, 200), stateHisto = false, currState);
+        hist.draw();
+      }
+      if (currStateHist) {
+        stateHist = new Histogram(120, 600, 80, 1100, "MKT_CARRIER", "DISTANCE (km)", myFont2, color(170, 66, 245), stateHisto = true, currState);
+        stateHist.draw();
+      }
     }
     if (pieChart)
     {
