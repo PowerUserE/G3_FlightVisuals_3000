@@ -78,7 +78,7 @@ class Screen {
       noFill(); // Disable filling of the rectangle
       // rect(0, 0, width-3, height-3); // Draw a rectangle around the edges of the screen
 
-      fill(230);
+      fill(170, 206, 235);
       rect(0, 0, width - 445, 75);
       rect(976, 0, 445, height);
 

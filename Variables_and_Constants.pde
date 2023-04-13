@@ -86,6 +86,18 @@ float max = 0;
 float min = 0;
 ArrayList<Checkbox> checkboxes = new ArrayList<Checkbox>();
 
+int divertArr = 0;
+int cancelArr = 0;
+int onTimeArr = 0;
+
+int divertDep = 0;
+int cancelDep = 0;
+int onTimeDep = 0;
+
+int divertH = 0;
+int cancelH = 0;
+int onTimeH = 0;
+
 
 String[] airlines = {"AA", "NK", "AS", "B6", "DL", "F9", "G4", "HA", "UA", "WN"};
 color[] airlineColors = {color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 0), color(255, 0, 255), color(0, 255, 255), color(255, 128, 0), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
