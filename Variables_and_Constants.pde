@@ -10,12 +10,13 @@ import java.util.Locale;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 boolean parsing = true;
-//String flightFilePath = "flights2k.csv";
+String flightFilePath = "flights2k.csv";
 //String flightFilePath = "flights10k.csv";
-String flightFilePath = "flights100k.csv";
+//String flightFilePath = "flights100k.csv";
 //String flightFilePath = "flights_full.csv";
 String[] flightData;
 

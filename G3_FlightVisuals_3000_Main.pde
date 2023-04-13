@@ -99,7 +99,7 @@ void setup() {
   screen1 = new Screen(color(255), backgroundImage, mapImage);
   screen2 = new Screen(color(170, 206, 235));
   screen3 = new Screen(color(170, 206, 235), histogram, "AVERAGE FLYING DISTANCE PER CARRIER");
-  screen4 = new Screen(color(0), pieChart);
+  screen4 = new Screen(color(180), pieChart);
   screen5 = new Screen(color(170, 206, 235), lineGraph);
   screen1.add(widget1);
   screen1.add(widget7);
@@ -149,10 +149,10 @@ void draw() {
     PieChart pieChartM = new PieChart();
     testDep();
     println(DepatureData);
-    pieChartM.pieChart(width/2-450, height/2+25, 400, DepatureData, colors, names);
+    pieChartM.pieChart(width/2-450, height/2+25, 400, DepatureData, colorss, names);
     testArr();
     println(ArrivalData);
-    pieChartM.pieChart(width/2+25, height/2+25, 400, ArrivalData, colors, names);
+    pieChartM.pieChart(width/2+25, height/2+25, 400, ArrivalData, colorss, names);
   }
 
   if (queryRequested) {
@@ -203,9 +203,10 @@ void draw() {
       }
     }
   }
-  if (!drawHist && currState!= "Null" && currentScreen == screen1) {
-    HomePieChart pieChartH = new HomePieChart();
-    pieChartH.pieChart(width/2 + 370, 240, 150, values, colors);
+  if (!drawHist && currState!= "Null" && currentScreen == screen1) { 
+    pieHomeArray();
+    PieChart pieChartH = new PieChart();
+    pieChartH.pieChart(width/2 + 370, 240, 150, airportCountsArray, colorss, airportNamesArray);
   }
 }
 
