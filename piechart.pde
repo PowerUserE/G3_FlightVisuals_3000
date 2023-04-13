@@ -1,8 +1,8 @@
 
 
 //int[] values = {32, 11, 15, 45, 50, 28};
-//color[] colorss = {color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 0), color(255, 0, 255), color(0, 255, 255), color(255, 128, 0), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
-color[] colorss = {color(135, 206, 235), color(173, 216, 230), color(125, 249, 255), color(0, 255, 255), color(137, 207, 240), color(240, 255, 255), color(0, 255, 255), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
+color[] colorss = {color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 0), color(255, 0, 255), color(0, 255, 255), color(255, 128, 0), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
+//color[] colorss = {color(135, 206, 235), color(173, 216, 230), color(125, 249, 255), color(0, 255, 255), color(137, 207, 240), color(240, 255, 255), color(0, 255, 255), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
 String[] names = {"Diverted", "Cancelled", "Ontime"};
 int[] valval = {32, 11, 15, 45};
 int[] DepatureData = new int[3];
@@ -13,7 +13,7 @@ int[] HomePieData = new int[3];
 
 
 int[] values = {30, 40, 70, 60}; // These are example values, adjust them to your data
-color[] colors = {color(135, 206, 235), color(173, 216, 230), color(125, 249, 255), color(0, 255, 255), color(137, 207, 240), color(240, 255, 255), color(0, 255, 255), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
+//color[] colors = {color(135, 206, 235), color(173, 216, 230), color(125, 249, 255), color(0, 255, 255), color(137, 207, 240), color(240, 255, 255), color(0, 255, 255), color(128, 0, 255),color(135, 206, 235), color(173, 216, 230), color(125, 249, 255), color(0, 255, 255), color(137, 207, 240), color(240, 255, 255), color(0, 255, 255), color(128, 0, 255),color(135, 206, 235), color(173, 216, 230), color(125, 249, 255), color(0, 255, 255), color(137, 207, 240), color(240, 255, 255), color(0, 255, 255), color(128, 0, 255), color(255, 0, 128), color(128, 255, 0)};
 
 
 //class PieChart {
@@ -66,20 +66,26 @@ class PieChart {
 
     textFont(SubHeaderFont);
     textSize(20);
-    text("Pie Chart: Airline Distribution for "+ currState, width/2 + 310, 134);
+    text("Pie Chart: Top 5 Airports for: "+ currState, width/2 + 310, 134);
 
     // get sum of values
     for (int i =0; i<pVal.length; i++) {
       total += pVal[i];
     }
-
+       
+  
     for (int i =0; i<pVal.length; i++) {
+       percent = (pVal[i] / total) * 100;
+      
+      fill(0);
+      textFont(screenFont);
+      text(int(percent) + "%" ,width/2 + 450, 182+ i * 25);
+      strokeWeight(1);
       fill(pCols[i]);
-      strokeWeight(0);
-      rect(width/2 + 450, 150+ i * 25, 15, 15);
+      rect(width/2 + 480, 170+ i * 25, 15, 15);
       textSize(15);
       //fill(0);
-      text(names[i], width/2 + 470, 163 + i * 25);
+      text(names[i], width/2+10 + 493,  182+ i * 25);
       strokeWeight(1);
       float angle = map(pVal[i], 0, total, 0, 2*PI);
       arc(pX, pY, pDia, pDia, lastAngle, lastAngle+angle, PIE);
@@ -88,15 +94,15 @@ class PieChart {
       float midAngle = (lastAngle + lastAngle + angle) / 2;
       //float lineEndX = pX + cos(midAngle) * pDia * 0.55;
       //float lineEndY = pY + sin(midAngle) * pDia * 0.55;
-      float percentX = pX + cos(midAngle) * pDia * 0.55;
-      float percentY = pY + sin(midAngle) * pDia * 0.55;
+      float percentX = pX + cos(midAngle) * pDia * 0.45;
+      float percentY = pY + sin(midAngle) * pDia * 0.45;
 
       if (mouseAngle >= lastAngle && mouseAngle < lastAngle + angle) {
         // line(pX, pY, lineEndX, lineEndY);
-        percent = (pVal[i] / total) * 100;
-        textFont(SubHeaderFont);
+       // textFont(SubHeaderFont);
       }
-      text(int(percent) + " %", percentX, percentY);
+      fill(0);
+        //text(int(percent) + " %", percentX, percentY);
       lastAngle += angle;
     }
   }
