@@ -3,7 +3,7 @@ import controlP5.*;
 ControlP5 cp5;
 String carrier;
 PImage backgroundImage, mapImage, CA_MAP, lineGraphSample, pieChartSample, histogramSample, logo, loadingScreen, arrowIcon, calendar, settingsIcon, profileIcon;
-PImage playIcon, menuIcon, image;
+PImage playIcon, menuIcon, image, barChartIcon, lineGraphIcon, pieChartIcon;
 PImage lastScreenT;
 PImage currentScreenT;
 String screen = "home";
@@ -52,6 +52,12 @@ void setup() {
   playIcon.resize(28, 28);
   menuIcon = loadImage("editing.png");
   menuIcon.resize(28, 28);
+  barChartIcon = loadImage("barChart.png");
+  barChartIcon.resize(100, 100);
+  lineGraphIcon = loadImage("lineGraph.png");
+  lineGraphIcon.resize(100, 100);
+  pieChartIcon = loadImage("pieChart.png");
+  pieChartIcon.resize(100, 100);
   image = loadImage("treeWhiteTest.jpg");
 
   //image(loadingScreen, 0, 0, width, height);
@@ -78,11 +84,11 @@ void setup() {
   widgetList.add(widget2);
   // widget3 = new Widget(width-75, 65, 65, 40, "BACK", color(0, 255, 0), widgetFont, EVENT_BUTTON3);
   widgetList.add(widget3);
-  widget4 = new Widget(0, 200, 510, 40, "AVERAGE FLYING DISTANCE PER CARRIER", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON4);
+  widget4 = new Widget(0, 100, 1000, 40, "Bar Chart", barChartIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON4);
   widgetList.add(widget4);
-  widget5 = new Widget(0, 300, 510, 40, "TOTAL DISTANCE TRAVELLED BY EACH CARRIER", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON5);
+  widget5 = new Widget(0, 300, 1000, 40, "Pie Chart", pieChartIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON5);
   widgetList.add(widget5);
-  widget6 = new Widget(0, 400, 510, 40, "Line Graph", queryIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6);
+  widget6 = new Widget(0, 500, 1000, 40, "Line Graph", lineGraphIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON6);
   widgetList.add(widget6);
   widget7 = new Widget(width-85, 143, 70, 32, "", menuIcon, color(0, 255, 0), widgetFont, EVENT_BUTTON7); // remember to run widget
   widgetList.add(widget7);
@@ -91,10 +97,10 @@ void setup() {
 
 
   screen1 = new Screen(color(255), backgroundImage, mapImage);
-  screen2 = new Screen(color(255));
-  screen3 = new Screen(color(150), histogram, "AVERAGE FLYING DISTANCE PER CARRIER");
-  screen4 = new Screen(color(255), pieChart);
-  screen5 = new Screen(color(255), lineGraph);
+  screen2 = new Screen(color(170, 206, 235));
+  screen3 = new Screen(color(170, 206, 235), histogram, "AVERAGE FLYING DISTANCE PER CARRIER");
+  screen4 = new Screen(color(0), pieChart);
+  screen5 = new Screen(color(170, 206, 235), lineGraph);
   screen1.add(widget1);
   screen1.add(widget7);
   screen2.add(widget2);
@@ -137,40 +143,18 @@ void draw() {
   {
     histog.draw();
   }
-
-
-
-  //if (transitionProgress < 1.0) {
-  //  transitionProgress += 0.19; // Control the transition speed here (higher value = faster transition)
-  //  image(image, 0, 0, width, height);
-  //  //tint(0, lerp(0, 255, transitionProgress)); // Apply the lerp function to interpolate the alpha channel
-  //  noTint();
-  //} else {
-  //  currentScreen.draw();
-  //}
-
   currentScreen.draw();
 
+  if (currentScreen == screen4) {
+    PieChart pieChartM = new PieChart();
+    testDep();
+    println(DepatureData);
+    pieChartM.pieChart(width/2-450, height/2+25, 400, DepatureData, colors, names);
+    testArr();
+    println(ArrivalData);
+    pieChartM.pieChart(width/2+25, height/2+25, 400, ArrivalData, colors, names);
+  }
 
-
-  //switch (screen) {
-  //case "home":
-  //  //case "textBox":
-  //case "querypage":
-  //  stateData();
-  //  // getTextInput();
-  //  //currentScreen.draw();
-  //  break;
-  //case "state":
-  //  //currentScreen.draw();
-  //  break;
-  //  //case "queryPage":
-  //  //currentScreen.draw();
-  //  //break;
-  //default:
-  //  println("Invalid screen");
-  //  break;
-  //}
   if (queryRequested) {
     queryData.displayMessage();
   }
@@ -218,6 +202,10 @@ void draw() {
         lg.draw(dayArray, totalDelaysArray, airline, airlineColor);
       }
     }
+  }
+  if (!drawHist && currState!= "Null" && currentScreen == screen1) {
+    HomePieChart pieChartH = new HomePieChart();
+    pieChartH.pieChart(width/2 + 370, 240, 150, values, colors);
   }
 }
 
