@@ -148,11 +148,12 @@ void draw() {
   if (currentScreen == screen4) {
     PieChart pieChartM = new PieChart();
     testDep();
-    println(DepatureData);
-    pieChartM.pieChart(width/2-450, height/2+25, 400, DepatureData, colorss, names);
+   // println(DepatureData);
+    pieChartM.pieChart(width/2-450, height/2+25, 400, DepatureData, colorss, names, currState);
     testArr();
-    println(ArrivalData);
-    pieChartM.pieChart(width/2+25, height/2+25, 400, ArrivalData, colorss, names);
+   // println(ArrivalData);
+   flagPie = true;
+    pieChartM.pieChart(width/2+25, height/2+25, 400, ArrivalData, colorss, names, currState);
   }
 
   if (queryRequested) {
