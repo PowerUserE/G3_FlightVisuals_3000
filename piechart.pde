@@ -106,6 +106,62 @@ class PieChart {
       lastAngle += angle;
     }
   }
+  
+  void pieChart(float pX, float pY, float pDia, int[] pVal, int[]pCols, String[] names, String currState) {
+    strokeWeight(1);
+    float total = 0;
+    float lastAngle= -PI;
+    float mouseAngle = atan2(mouseY-pY, mouseX-pX);
+    float percent = 0;
+
+    textFont(SubHeaderFont);     
+    text("DEPATURE STATS: "+ currStateFull, 70,130);
+    text("ARRIVAL STATS: "+ currStateFull, 570,130);
+textSize(20);
+    // get sum of values
+    for (int i =0; i<pVal.length; i++) {
+      total += pVal[i];
+    }
+       
+  
+    for (int i =0; i<pVal.length; i++) {
+       percent = (pVal[i] / total) * 100;
+      
+      fill(0);
+      textFont(screenFont);
+      text(int(percent) + "%" ,70+20, 600+ i * 25);
+      if(flagPie){
+      text(int(percent) + "%" ,590+20, 600+ i * 25);
+      }
+      flagPie =false;
+      strokeWeight(1);
+      fill(pCols[i]);
+      rect(70, 600+ i * 25, 15, 15);
+      rect(590, 600+ i * 25, 15, 15);
+      textSize(15);
+      //fill(0);
+      text(names[i],70+50,  600+ i * 25);
+      text(names[i],590+50,  600+ i * 25);
+      strokeWeight(1);
+      float angle = map(pVal[i], 0, total, 0, 2*PI);
+      arc(pX, pY, pDia, pDia, lastAngle, lastAngle+angle, PIE);
+      //fill(0);
+
+      float midAngle = (lastAngle + lastAngle + angle) / 2;
+      //float lineEndX = pX + cos(midAngle) * pDia * 0.55;
+      //float lineEndY = pY + sin(midAngle) * pDia * 0.55;
+      float percentX = pX + cos(midAngle) * pDia * 0.45;
+      float percentY = pY + sin(midAngle) * pDia * 0.45;
+
+      if (mouseAngle >= lastAngle && mouseAngle < lastAngle + angle) {
+        // line(pX, pY, lineEndX, lineEndY);
+       // textFont(SubHeaderFont);
+      }
+      fill(0);
+        //text(int(percent) + " %", percentX, percentY);
+      lastAngle += angle;
+    }
+  }
 
 
   void pieChart(float pX, float pY, float pDia, int[] pVal, int[]pCols) {
@@ -158,9 +214,9 @@ void testDep() {
       }
     }
   }
-  DepatureData[0] = divertDep;
-  DepatureData[1] = cancelDep;
-  DepatureData[2] = onTimeDep;
+  DepatureData[0] = cancelDep;
+  DepatureData[1] = onTimeDep;
+  DepatureData[2] = divertDep;
 }
 
 void testArr() {
@@ -179,9 +235,9 @@ void testArr() {
       }
     }
   }
-  ArrivalData[0] = divertArr;
-  ArrivalData[1] = cancelArr;
-  ArrivalData[2] = onTimeArr;
+  ArrivalData[0] = cancelArr;
+  ArrivalData[1] = onTimeArr;
+  ArrivalData[2] = divertArr;
 }
 
 
